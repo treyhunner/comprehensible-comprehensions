@@ -25,19 +25,857 @@
     <div class="reveal">
       <div class="slides">
 
+      <section>
+
         <section data-background="#ffffff" data-background-transition="zoom" data-transition="zoom" data-transition-speed="fast">
           <h1>Comprehensible Comprehensions</h1>
           <p>
-          <small><a href="http://treyhunner.com" rel="author">Trey Hunner</a> / <a href="https://twitter.com/treyhunner">@treyhunner</a></small>
+          <small><a href="https://treyhunner.com" rel="author">Trey Hunner</a> / Python &amp; Django Trainer / <a href="https://twitter.com/treyhunner">@treyhunner</a></small>
           </p>
           <aside class="notes" data-markdown>
             TODO
           </aside>
         </section>
 
-        <section>Slide 1</section>
+        <section>
+          <h2>Assumptions</h2>
+          <ul>
+            <li>You know how <code>for</code> loops work in Python</li>
+            <li>You're not already a big fan of list comprehensions and generator expressions</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            - I'm assuming you know how `for` loops work in Python
+            - I'm assuming you're not already a fan of list comprehensions and generator expressions
+          </aside>
+        </section>
 
-        <section>Slide 2</section>
+        <section>
+          <h2>Definitions</h2>
+          <ul>
+            <li><strong>iterable</strong>: anything you can loop over</li>
+            <li><strong>list comprehension</strong>: for making a new list from an iterable</li>
+            <li><strong>generator</strong>: for making a "lazy" (pause-able) iterable</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            - An **iterable** is anything you can iterate over.  So anything you can loop over with a `for` loop is an iterable.
+            - Lists are iterables, dictionaries are iterables, sets are iterables, strings are iterables... lots of things in Python are iterables
+            - A **list comprehension** is a special syntax for making a new list from any iterable
+            - A **generator** is a lazy iterable.  Generators pause and restart themselves repeatedly as you loop over them.
+            - A **generator expression** is a special syntax for making a generator
+          </aside>
+        </section>
+
+        <section>
+          <h2>What are comprehensions?</h2>
+          <p><blockquote>List comprehensions are a special syntax for turning one list into another list</blockquote></p>
+          <aside class="notes" data-markdown>
+            - I'll be discussing all of those terms, but they one we're primarily focused on is **list comprehensions**
+            - List comprehensions do not solve a new problem: they're special-purpose tools for solving a problem we're already able to solve with `for` loops
+          </aside>
+        </section>
+
+      </section>
+
+      <section>
+
+        <section>
+          <h2>Turning Old Lists Into New Lists</h2>
+          <ul>
+          <aside class="notes" data-markdown>
+            Let's talk about `for` loops
+          </aside>
+        </section>
+
+        <section>
+          <h2><code>for</code> loops</h2>
+          <p>
+          <pre class="python"><code data-trim>
+numbers = [1, 2, 3, 4, 5]
+
+# Print out square of odd numbers
+for n in numbers:
+    if n % 2 == 1:
+        print(n ** 2)
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Python's `for` allows us to loop over any iterable and do things with each item as we loop
+            - We can put `if` statements, `print` functions, or pretty much any other code inside our `for` loops
+          </aside>
+        </section>
+
+        <section>
+          <h2>Turning lists into lists</h2>
+          <p>
+          <pre class="python"><code data-trim>
+numbers = [1, 2, 3, 4, 5]
+
+# Populate new list with square of odd numbers
+squared_odds = []
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.append(n ** 2)
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - This `for` loop makes a new list 
+            - Making one list from another list is a *really* common thing to do in Python, even more common than many other programming languages
+            - Why is making new lists from old lists so common in Python?
+          </aside>
+        </section>
+
+        <section>
+          <h2>Variables Are References</h2>
+          <p>
+          <pre class="no-highlight"><code class="hljs" data-trim data-noescape>
+>>> old = [1, 2, 3]
+>>> new = old
+>>> new.pop()
+>>> new
+[1, 2]
+<span class="error">>>> old
+[1, 2]</span>
+
+<div class="fragment">>>> old = [1, 2, 3]
+>>> new = old[:-1]
+>>> new
+[1, 2]
+<span class="success">>>> old
+[1, 2, 3]</span></div>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Assigning to a variable in Python doesn't copy anything
+            - Variables in Python are not buckets containing objects
+            - Variables are simply *references* to objects
+            - So we tend to copy old lists to new lists because mutating lists is often a bad idea
+          </aside>
+        </section>
+
+        <section>
+          <h2>Turning lists into lists</h2>
+          <p>
+          <pre class="python"><code data-trim>
+squared_odds = []
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.append(n ** 2)
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - So turning old lists into new lists is a very common thing to do
+            - It's such a common thing to do that Python developers added a special syntax just for turning one list into another list
+            - This special syntax is called a list comprehension
+          </aside>
+        </section>
+
+        <section>
+          <h2>With comprehensions</h2>
+          <p>
+          <pre class="python"><code data-trim>
+squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - This list comprehension is equivalent to that `for` loop we wrote before
+            - This list comprehension is very information-dense
+            - We've condensed four lines of code into one line here
+            - Let's break down our `for` loop and our comprehension to see how they compare
+          </aside>
+        </section>
+
+        <section>
+          <h2>Breaking it down</h2>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs">
+<span class="new-collection">squared_odds</span> = <span class="collection-type">[]</span>
+<span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
+    <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>:
+        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n ** 2</span>)
+          </code></pre>
+          </p>
+          <p>
+          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs">
+<span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - I've highlighted five things here
+              - The variable name for our new list is in green
+              - The square brackets that make our list are in dark red
+              - The looping logic is in purple
+              - The condition is in bright red
+              - And the item we're appending every time we loop is in blue
+            - Here are the same items highlighted in our comprehension
+            - Notice that our comprehension contains pretty much the same information except:
+              - we aren't repeating the variable name
+              - and we don't have to type append
+            - Loops and list comprehensions are so similar that you can copy-paste your way from a `for` loop to a comprehension
+          </aside>
+        </section>
+
+        <section>
+          <h2>Copy-pasting into a comprehension</h2>
+          <img src="list-comprehension-condition.gif" class="no-style">
+          <aside class="notes" data-markdown>
+            - First we copy the assignment
+            - Then we copy thing we're appending
+            - Then we copy the looping logic
+            - Then we copy our condition
+            - TODO: new slide as long as you can figure out a way to write your for loop in this format, you can copy-paste your way from a `for` loop to a comprehension
+          </aside>
+        </section>
+
+        <section>
+          <h2>You can always copy-paste</h2>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">new_list</span> = <span class="collection-type">[]</span>
+<span class="for-loop">for <span class="item">item</span> in <span class="old-collection">old_list</span></span>:
+    <span class="conditional-clause">if <span class="condition">condition(item)</span></span>:
+        <span class="new-collection">new_list</span>.append(<span class="item-mutation">operation(item)</span>)</code></pre>
+          </p>
+          <p>
+          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">new_list</span> = <span class="collection-type">[</span><span class="item-mutation">operation(item)</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">old_list</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">condition(item)</span></span>]</span></code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - I've highlighted five things here
+              - The variable name for our new list is in green
+              - The square brackets that make our list are in dark red
+              - The looping logic is in purple
+              - The condition is in bright red
+              - And the item we're appending every time we loop is in blue
+            - Here are the same items highlighted in our comprehension
+            - Notice that our comprehension contains pretty much the same information except:
+              - we aren't repeating the variable name
+              - and we don't have to type append
+            - Loops and list comprehensions are so similar that you can copy-paste your way from a `for` loop to a comprehension
+          </aside>
+        </section>
+
+        <section>
+          <h2>When can you use a list comprehension?</h2>
+          <ul>
+            <li>When you are turning one list into another</li>
+            <li>When you are turning one iterable into another</li>
+            <li>At no other time</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            - TODO move this??
+          </aside>
+        </section>
+
+      </section>
+
+      <section>
+
+        <section>
+          <h2>Readability</h2>
+          <ul>
+          <aside class="notes" data-markdown>
+            - The most common complaint about list comprehensions is that they're hard to read
+            - List comprehensions tend to be more compact than `for` loops
+            - Let's talk about that
+          </aside>
+        </section>
+
+        <section>
+          <h2>But they're not readable</h2>
+          <p>
+          <pre class="python"><code data-trim>
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.append(n ** 2)
+          </code></pre>
+          <pre class="python"><code data-trim>
+squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Comprehensions are often written all on one line
+            - TODO
+          </aside>
+        </section>
+
+        <section data-transition="slide-in none-out">
+          <h2>Breaking up the components</h2>
+          <p>
+          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span>
+          </code></pre>
+          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span>
+    <span class="item-mutation">n ** 2</span>
+    <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type">
+    <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>
+<span class="collection-type">]</span></code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Comprehensions have 3 parts
+            - There's no reason that all of those three parts has to be written on one line of code
+            - Breaking comprehensions into three lines can make them much more readable
+          </aside>
+        </section>
+
+        <section data-transition="none-in slide-out">
+          <h2>Breaking up the components</h2>
+          <p>
+          <pre class="python"><code data-trim>
+squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
+          </code></pre>
+          <pre class="python"><code data-trim>
+squared_odds = [
+    n ** 2
+    for n in numbers
+    if n % 2 == 1
+]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Usually breaking up a comprehension over multiple lines improves readability
+            - So I would recommend writing the **majority** of your list comprehensions using multiple lines
+          </aside>
+        </section>
+
+        <section data-transition="slide-in none-out">
+          <h2>They can be more readable</h2>
+          <p>
+          <pre class="python"><code data-trim>
+squared_odds = []
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.append(n ** 2)
+          </code></pre>
+          <pre class="python"><code data-trim>
+squared_odds = [
+    n ** 2
+    for n in numbers
+    if n % 2 == 1
+]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - This multi-line list comprehension hasn't saved us any lines of code
+            - In fact, we've gone from 4 lines of code in our `for` loop to 5 lines of code in our list comprehension
+            - I find this list comprehension more descriptive than our `for` loop though
+          </aside>
+        </section>
+
+        <section data-transition="none-in slide-out">
+          <h2>They can be more readable</h2>
+          <p>
+          <pre class="python"><code data-trim data-noescape>
+<span class="blur">squared_odds = []</span>
+for <span class="blur">n</span> in <span class="blur">squared_odds</span>:
+    <span class="blur">if n % 2 == 1:
+        squared_odds.append(n ** 2)</span>
+          </code></pre>
+          <pre class="python"><code data-trim data-noescape>
+squared_odds = [
+    <span class="blur">n ** 2</span>
+    for <span class="blur">n</span> in <span class="blur">numbers</span>
+    if <span class="blur">n % 2 == 1</span>
+]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - When a reader looks at our loop it's obvious that we're looping, but it may not be immediately obvious why we're looping
+            - When a reader sees our comprehension, it should be immediately obvious that we're creating one loop from another loop
+            - When we use a list comprehension, we're being more specific with the intent of our code: we're not just looping, we're making one list out of another list
+          </aside>
+        </section>
+
+      </section>
+
+      <section>
+
+        <section>
+          <h2>But wait... there's more!</h2>
+          <ul>
+          <aside class="notes" data-markdown>
+            - I've glossed over a few important details in the world of list comprehensions
+            - Let me show you some other ways you can use list comprehensions
+          </aside>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+          <h2>With Filtering</h2>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[]</span>
+<span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
+    <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>:
+        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n ** 2</span>)</code></pre>
+          </p>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span>
+    <span class="item-mutation">n ** 2</span>
+    <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type">
+    <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>
+<span class="collection-type">]</span></code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - This whole time I've been showing you list comprehensions with a condition
+            - These list comprehensions filter out items that don't match a certain condition
+            - You can also write list comprehensions without this `if` statement
+          </aside>
+        </section>
+
+        <section data-transition="fade-in slide-out">
+          <h2>Without Filtering</h2>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_numbers</span> = <span class="collection-type">[]</span>
+<span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
+    <span class="new-collection">squared_numbers</span>.append(<span class="item-mutation">n ** 2</span>)
+          </code></pre>
+          </p>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_numbers</span> = <span class="collection-type">[</span>
+    <span class="item-mutation">n ** 2</span>
+    <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>
+<span class="collection-type">]</span>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Here we're not filtering our list down, we're simply changing each item
+            - So our `for` loop doesn't have an `if` statement and our list comprehension doesn't have a condition
+          </aside>
+        </section>
+
+        <!--
+        <section>
+          <h2>With Multiple Loops</h2>
+          <p>
+          <pre class="python"><code data-trim>
+def pythagorean_triples_to(n):
+    """Return Pythagorean triples up to given number."""
+    triples = []
+    for a in range(1, n)
+        for b in range(a, n)
+            for c in range(b, n)
+                triples.append((a, b, c))
+    return triples
+          </code></pre>
+          <pre class="python"><code data-trim>
+def pythagorean_triples_to(n):
+    """Return Pythagorean triples up to given number."""
+    return [
+        (a, b, c)
+        for a in range(1, n)
+        for b in range(a, n)
+        for c in range(b, n)
+        if a**2 + b**2 == c**2
+    ]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+          </aside>
+        </section>
+
+        <section>
+          <h2>With Multiple Loops</h2>
+          <p>
+          <pre class="python"><code data-trim>
+flattened = [
+    n
+    for n in row
+    for row in matrix
+]
+          </code></pre>
+          <pre class="fragment"><code data-trim>
+          NameError: name 'row' is not defined
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO: (show incorrect order of loops and then show how it's easier to do multi-loop comprehensions by copy-pasting)
+          </aside>
+        </section>
+        -->
+
+        <section>
+          <h2>With Multiple Loops</h2>
+          <p>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">flattened</span> = <span class="collection-type">[]</span>
+<span class="for-loop">for <span class="item">row</span> in <span class="old-collection">matrix</span></span>:
+    <span class="nested-for-loop">for <span class="item">n</span> in <span class="old-collection">row</span></span>:
+        <span class="new-collection">flattened</span>.append(<span class="item-mutation">n</span>)</code></pre>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">flattened</span> = <span class="collection-type">[</span>
+    <span class="item-mutation">n</span>
+    <span class="for-loop">for <span class="item">row</span> in <span class="old-collection">matrix</span></span><span class="collection-type">
+    <span class="nested-for-loop">for <span class="item">n</span> in <span class="old-collection">row</span></span>
+<span class="collection-type">]</span></code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - You can also put multiple `for` loops in a comprehension
+            - TODO write something else here
+            - This can get a little complicated so be careful about abusing this
+          </aside>
+        </section>
+
+        <section>
+          <h2>Set comprehensions</h2>
+          <p>
+          <pre class="python"><code data-trim>
+numbers = {1, 2, 3, 4, 5}
+
+squared_odds = set()
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.add(n ** 2)
+          </code></pre>
+          <pre class="python"><code data-trim>
+numbers = {1, 2, 3, 4, 5}
+
+squared_odds = {
+    n ** 2
+    for n in numbers
+    if n % 2 == 1
+}
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Comprehensions also aren't just limited to lists
+            - You can make `set` comprehensions as well
+            - Just as a list comprehension builds up a new list, a set comprehension builds up a new set
+            - Set comprehensions are functionally equivalent to adding items to a set in a loop
+          </aside>
+        </section>
+
+        <section>
+          <h2>Dictionary comprehensions</h2>
+          <p>
+          <pre class="python"><code data-trim>
+from string import ascii_lowercase
+
+letter_positions = {}
+for n, letter in enumerate(ascii_lowercase, start=1):
+    letter_positions[letter] = n
+          </code></pre>
+          <pre class="python"><code data-trim>
+from string import ascii_lowercase
+
+letter_positions = {
+    letter: n
+    for n, letter in enumerate(ascii_lowercase, start=1)
+}
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - There's also dictionary comprehensions
+            - Dictionary comprehensions need a slightly different syntax to work because dictionaries have both keys and values
+            - So dictionary comprehensions require us to use a colon between key/value pairs as we build up the dictionary
+          </aside>
+        </section>
+
+      </section>
+
+      <!-- 8 minutes -->
+
+      <section>
+
+        <section>
+          <h2 class="fragment strike">Generator Comprehensions</h2>
+          <h2 class="fragment">Generator Expressions</h2>
+          <ul>
+          <aside class="notes" data-markdown>
+            - List comprehensions make lists
+            - Set comprehensions make sets
+            - Dictionary comprehensions make dictionaries
+            - Generator comprehensions make generators
+            - Except they're not called generator comprehensions
+            - They're called generator expressions
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generator Expressions</h2>
+          <ul>
+            <li>Generator expressions are to generators as list comprehensions are to lists</li>
+            <li>Generators are lazy single-use iterables</li>
+            <li class="fragment">If you're making a list to <strong>loop over it exactly once</strong>, use a <strong>generator expression</strong> instead of a list comprehension</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            - You might be wondering what a generator is
+            - I'm not going to go deep into generators during this talk because I don't have time
+            - There's **one thing** I want you to remember about generator expressions
+            - If you're writing a list comprehension and you're going to loop over your new list exactly once, you should write a generator expression instead
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generator Expression Syntax</h2>
+          <p>
+          <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
+>>> numbers = range(1_000_000)
+<span class="fragment">>>> squared_numbers = (n ** 2 for n in numbers)</span>
+<span class="fragment">>>> squared_numbers
+&lt;generator object &lt;genexpr> at 0x7f129b187780></span>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - If you write a list comprehension and you change the square brackets into parenthesis, you've made a generator expression instead
+            - Generator expressions make generators the same way list comprehensions make lists
+            - Generators are pretty weird.  Let's take a look at how they work.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generators are weird</h2>
+          <p>
+          <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
+>>> numbers = [1, 2, 3, 4, 5]
+>>> squared_numbers = (n ** 2 for n in numbers)
+<div class="fragment error">>>> len(squared_numbers)
+TypeError: object of type 'generator' has no len()
+</div><div class="fragment error">>>> squared_numbers[0]
+TypeError: 'generator' object is not subscriptable
+</div><div class="fragment success">>>> list(squared_numbers)
+[1, 4, 9, 16, 25]
+</div><div class="fragment warning">>>> list(squared_numbers)
+[]
+</div>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Generators don't know how many elements are inside them, so they have no length
+            - You can't index generators like you can with lists or tuples
+            - The only thing you can do with generators is loop over
+            - And if we loop over generator a second time, we'll get nothing back
+          </aside>
+        </section>
+
+        <!-- This section 5 minutes (not counting examples) -->
+        <section>
+          <h2>Generators are lazy</h2>
+          <p>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generators are single use iterables</h2>
+          <p>
+          <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
+>>> numbers = [1, 2, 3, 4, 5]
+>>> squared_numbers = (n ** 2 for n in numbers)
+<div class="fragment success">>>> sum(squared_numbers)
+333332833333500000
+</div><div class="fragment warning">>>> sum(squared_numbers)
+0</div>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - We got nothing back when we looped twice because generators are single-use iterables
+            - The only thing we can with them is loop over them
+            - But only once.  The second time you loop, they're empty.
+            - Once you've looped over a generator, it's exhausted
+            - Generators are one-time use only
+          </aside>
+        </section>
+
+        <section>
+          <h2>Loop over them right away</h2>
+          <p>
+          <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
+>>> numbers = range(1_000_000)
+<div class="fragment">>>> sum((n ** 2 for n in numbers))
+333332833333500000
+</div><div class="fragment">>>> sum(n ** 2 for n in numbers)
+333332833333500000
+</div>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - So to be on the safe side, you should loop over a generator as soon as humanly possible
+            - Don't even make a variable to store them... just loop
+            - The sooner you loop over a generator, the less likely it is that you might accidentally loop over it twice
+            - This is such a common thing to do, that Python allows you to remove redundant parenthesis around generators
+            - This is probably the most common way to use a generator
+            - Create it and loop over it right away
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generator opportunity: <code>sum</code></h2>
+          <p>
+          <pre class="python"><code data-trim>
+sum_of_squares = 0
+for n in numbers:
+    sum_of_squares += n**2
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+squares = []
+for n in numbers:
+    squares.append(n**2)
+sum_of_squares = sum(squares)
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+sum_of_squares = sum(n**2 for n in numbers)
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generator opportunity: <code>any</code></h2>
+          <p>
+          <pre class="python"><code data-trim>
+def is_prime(candidate):
+    for n in range(2, candidate):
+        if candidate % n == 0:
+            return False
+    return True
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+def is_prime(candidate):
+    divisibility= []
+    for n in range(2, candidate):
+        divisibility.append(candidate % n == 0)
+    return not any(divisibility)
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+def is_prime(candidate):
+    return not any(
+        candidate % n == 0
+        for n in range(2, candidate)
+      )
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generator opportunity: <code>all</code></h2>
+          <p>
+          <pre class="python"><code data-trim data-noescape>
+def is_prime(candidate):
+    for n in range(2, candidate):
+        if candidate % n <span class="success">==</span> 0:
+            return False
+    return True
+          </code></pre>
+          <pre class="python fragment"><code data-trim data-noescape>
+def is_prime(candidate):
+    non_divisibility= []
+    for n in range(2, candidate):
+        non_divisibility.append(candidate % n <span class="success">!=</span> 0)
+    return all(non_divisibility)
+          </code></pre>
+          <pre class="python fragment"><code data-trim data-noescape>
+def is_prime(candidate):
+    return all(
+        candidate % n <span class="success">!=</span> 0
+        for n in range(2, candidate)
+      )
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO
+          </aside>
+        </section>
+
+      </section>
+
+        <!-- This section 3 - 4 minutes (not counting examples) -->
+      <section>
+
+        <section>
+          <h2>When to use comprehensions</h2>
+          <ul>
+          <aside class="notes" data-markdown>
+            TODO
+          </aside>
+        </section>
+
+        <section>
+          <h2>Don't overdo it</h2>
+          <ul>
+            <li>Don't use comprehensions except for making lists</li>
+            <li>List comprehensions should only be used for turning one list into another</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            - Remember that list comprehensions are only useful for turning one list into another
+            - Don't use list comprehensions except for making lists
+              - No print statements in comprehensions
+              - No executing functions with side effects in comprehensions
+            - Only for the specific (but common) use case of turning one list into another
+          </aside>
+        </section>
+
+        <section>
+          <h2>Don't abuse comprehensions</h2>
+          <p>
+          <pre class="python"><code data-trim>
+[print(n**2) for n in range(100) if n % 2 == 1]  # Don't do this
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Do not put print statements in your comprehensions
+            - In fact, don't put any side effects in comprehensions, even if you are making a list
+            - List comprehensions should only be used for the specific (but common) use case of turning one list into another
+          </aside>
+        </section>
+
+        <section>
+          <p>
+          <pre class="python"><code data-trim>
+color_ratios = {}
+for color, ratio in zip(colors, ratios):
+    color_ratios[color] = ratio
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+color_ratios = {
+    color: ratio
+    for (color, ratio) in zip(colors, ratios)
+}
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+color_ratios = dict(zip(colors, ratios))
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO don't use comprehensions when you could use a `list` or `dict` constructor
+            - TODO Just as there are sometimes simpler ways to do things than a `for` loop, there are sometimes simpler ways to do things than a comprehension
+          </aside>
+        </section>
+
+        <section>
+          <p>
+          <pre class="python"><code data-trim>
+with open(filename) as my_file:
+    lines = [line for line in my_file]
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+with open(filename) as my_file:
+    lines = list(my_file)
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+with open(filename) as my_file:
+    lines = my_file.readlines()
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - TODO
+          </aside>
+        </section>
+
+      </section>
+
+        <section>
+          <h2>Recap</h2>
+          <ul>
+            <li>TODO</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            - readability tips
+            - comprehensions copy-paste cheat sheet
+            - sum generator expression cheat sheet
+            - any/all generator expression cheat sheet
+            - min/max generator expression cheat sheet
+          </aside>
+        </section>
 
         <section style="text-align: left;" data-background="#663399" data-background-transition="slide" data-transition="slide">
           <h1>Final</h1>
@@ -46,7 +884,7 @@
           </p>
           <p>
           <small>
-            Technical trainer
+            Python &amp; Django Trainer for hire
             <br>
             <a href="http://truthful.technology">http://truthful.technology</a>
           </small>

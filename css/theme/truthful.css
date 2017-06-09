@@ -308,3 +308,46 @@ section.has-dark-background a:hover {
  *********************************************/
 .reveal .slide-number {
   color: #630FB7; }
+
+/* For blurring code */
+.blur {
+  -webkit-filter: blur(4.5px);
+  filter: blur(4.5px);
+}
+
+
+/* Comprehension highlighting */
+.new-collection {
+  color: green;
+}
+.collection-type {
+  color: brown;
+}
+.for-loop {
+  color: purple;
+}
+.nested-for-loop {
+  color: magenta;
+}
+.item-mutation {
+  color: blue;
+}
+.conditional-clause {
+  color: red;
+}
+pre .new-collection,
+pre .item-mutation,
+pre .item,
+pre .old-collection,
+pre .condition {
+  font-weight: bold;
+}
+pre .error {
+  color: darkred;
+}
+pre .warning {
+  color: darkblue;
+}
+pre .success {
+  color: green;
+}
