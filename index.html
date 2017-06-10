@@ -25,6 +25,7 @@
     <div class="reveal">
       <div class="slides">
 
+      <!-- 2 minute section -->
       <section>
 
         <section data-background="#ffffff" data-background-transition="zoom" data-transition="zoom" data-transition-speed="fast">
@@ -59,6 +60,7 @@
             <li><strong>generator</strong>: for making a "lazy" (pause-able) iterable</li>
           </ul>
           <aside class="notes" data-markdown>
+            - Before we get started, let's start with some definitions
             - An **iterable** is anything you can iterate over.  So anything you can loop over with a `for` loop is an iterable.
             - Lists are iterables, dictionaries are iterables, sets are iterables, strings are iterables... lots of things in Python are iterables
             - A **list comprehension** is a special syntax for making a new list from any iterable
@@ -71,13 +73,15 @@
           <h2>What are comprehensions?</h2>
           <p><blockquote>List comprehensions are a special syntax for turning one list into another list</blockquote></p>
           <aside class="notes" data-markdown>
-            - I'll be discussing all of those terms, but they one we're primarily focused on is **list comprehensions**
-            - List comprehensions do not solve a new problem: they're special-purpose tools for solving a problem we're already able to solve with `for` loops
+            - I'll be discussing all of those terms, but the term we're *primarily* focused on is **list comprehensions**
+            - List comprehensions do not solve a new problem...
+            - They're *special-purpose* tools for solving a problem we're already able to solve with `for` loops: turning one list into another list
           </aside>
         </section>
 
       </section>
 
+      <!-- 5 minute section -->
       <section>
 
         <section>
@@ -122,7 +126,9 @@ for n in numbers:
           <aside class="notes" data-markdown>
             - This `for` loop makes a new list 
             - Making one list from another list is a *really* common thing to do in Python, even more common than many other programming languages
-            - Why is making new lists from old lists so common in Python?
+            - Turning old lists to new lists is common in other languages, but it is particularly common in Python
+            - Why is making new lists from old lists so common in Python in particular?
+            - I'm going to take a little aside here to talk about the reason we turn old lists into new lists so often in Python
           </aside>
         </section>
 
@@ -150,7 +156,9 @@ for n in numbers:
             - Assigning to a variable in Python doesn't copy anything
             - Variables in Python are not buckets containing objects
             - Variables are simply *references* to objects
-            - So we tend to copy old lists to new lists because mutating lists is often a bad idea
+            - This can really trip up new Python programmers
+            - So we tend to copy old lists to new lists because *mutating* lists is often a bad idea
+            - When we modify a list, every other variable that points to that same list will seem to change as well
           </aside>
         </section>
 
@@ -180,7 +188,7 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           </p>
           <aside class="notes" data-markdown>
             - This list comprehension is equivalent to that `for` loop we wrote before
-            - This list comprehension is very information-dense
+            - This list comprehension is *very* information-dense
             - We've condensed four lines of code into one line here
             - Let's break down our `for` loop and our comprehension to see how they compare
           </aside>
@@ -202,14 +210,14 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - I've highlighted five things here
+            - I've here highlighted five things in this `for` loop
               - The variable name for our new list is in green
               - The square brackets that make our list are in dark red
               - The looping logic is in purple
               - The condition is in bright red
               - And the item we're appending every time we loop is in blue
             - Here are the same items highlighted in our comprehension
-            - Notice that our comprehension contains pretty much the same information except:
+            - Notice that our comprehension contains pretty much the same information as our `for` loop except that:
               - we aren't repeating the variable name
               - and we don't have to type append
             - Loops and list comprehensions are so similar that you can copy-paste your way from a `for` loop to a comprehension
@@ -224,7 +232,8 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
             - Then we copy thing we're appending
             - Then we copy the looping logic
             - Then we copy our condition
-            - And we've just copy-pasted our way from a `for` loop to a list comprehension
+            - And after that we've copy pasted our way a `for` loop to a list comprehension
+            - So we just need to copy each those components from the `for` loop into a comprehension and we can build a comprehension up without actually typing anything new
           </aside>
         </section>
 
@@ -240,22 +249,16 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">new_list</span> = <span class="collection-type">[</span><span class="item-mutation">operation(item)</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">old_list</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">condition(item)</span></span>]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - I've highlighted five things here
-              - The variable name for our new list is in green
-              - The square brackets that make our list are in dark red
-              - The looping logic is in purple
-              - The condition is in bright red
-              - And the item we're appending every time we loop is in blue
-            - Here are the same items highlighted in our comprehension
-            - Notice that our comprehension contains pretty much the same information except:
-              - we aren't repeating the variable name
-              - and we don't have to type append
-            - As long as you can figure out a way to write your for loop in this format, you can copy-paste your way from a `for` loop to a comprehension
+            - Here I've highlighted the same five things I was highlighting before
+            - This `for` loop is generic code though... it's a blueprint
+            - As long as you can figure out a way to write your for loop in this format, you can always copy-paste your way from a `for` loop to a comprehension
+            - So I've shown you how to build a list comprehension from a `for` loop... let's talk about readability
           </aside>
         </section>
 
       </section>
 
+      <!-- 2 minute section -->
       <section>
 
         <section>
@@ -283,7 +286,7 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <aside class="notes" data-markdown>
             - Comprehensions are often written all on one line
             - That can make comprehensions hard to read
-            - The comprehension here has less unnecessary information than the `for` loop, but it also has less whitespace
+            - The comprehension here has less unnecessary information than the `for` loop, but it also has **less whitespace**
           </aside>
         </section>
 
@@ -347,7 +350,7 @@ squared_odds = [
             - Note that this multi-line list comprehension hasn't saved us any lines of code
             - In fact, we've gone from 4 lines of code in our `for` loop to 5 lines of code in our list comprehension
             - List comprehensions are **not** about saving lines of code
-            - List comprehension are for making our code more descriptive and more readable
+            - List comprehensions are for making our code more descriptive and more readable
           </aside>
         </section>
 
@@ -364,7 +367,7 @@ for <span class="blur">n</span> in <span class="blur">squared_odds</span>:
 squared_odds = [
     <span class="blur">n ** 2</span>
     for <span class="blur">n</span> in <span class="blur">numbers</span>
-    if <span class="blur">n % 2 == 1</span>
+    <span class="blur">if n % 2 == 1</span>
 ]
           </code></pre>
           </p>
@@ -377,14 +380,15 @@ squared_odds = [
 
       </section>
 
+      <!-- 3 minute section -->
       <section>
 
         <section>
           <h2>But wait... there's more!</h2>
           <ul>
           <aside class="notes" data-markdown>
-            - I've glossed over a few important details in the world of list comprehensions
-            - Let me show you some other ways you can use list comprehensions
+            - So I've glossed over a few important details in the world of list comprehensions
+            - So let's look at a few other ways that you can make list comprehensions
           </aside>
         </section>
 
@@ -428,59 +432,10 @@ squared_odds = [
           <aside class="notes" data-markdown>
             - Here we're not filtering our list down at all, we're simply changing each item
             - So our `for` loop doesn't have an `if` statement and our list comprehension doesn't have a condition
+            - Note that you can still copy-paste your way from that `for` loop to this comprehension
             - List comprehensions can be used for filtering, mapping, or both.  This one is just for mapping old values to new values.
           </aside>
         </section>
-
-        <!--
-        <section>
-          <h2>With Multiple Loops</h2>
-          <p>
-          <pre class="python"><code data-trim>
-def pythagorean_triples_to(n):
-    """Return Pythagorean triples up to given number."""
-    triples = []
-    for a in range(1, n)
-        for b in range(a, n)
-            for c in range(b, n)
-                triples.append((a, b, c))
-    return triples
-          </code></pre>
-          <pre class="python"><code data-trim>
-def pythagorean_triples_to(n):
-    """Return Pythagorean triples up to given number."""
-    return [
-        (a, b, c)
-        for a in range(1, n)
-        for b in range(a, n)
-        for c in range(b, n)
-        if a**2 + b**2 == c**2
-    ]
-          </code></pre>
-          </p>
-          <aside class="notes" data-markdown>
-          </aside>
-        </section>
-
-        <section>
-          <h2>With Multiple Loops</h2>
-          <p>
-          <pre class="python"><code data-trim>
-flattened = [
-    n
-    for n in row
-    for row in matrix
-]
-          </code></pre>
-          <pre class="fragment"><code data-trim>
-          NameError: name 'row' is not defined
-          </code></pre>
-          </p>
-          <aside class="notes" data-markdown>
-            - TODO: (show incorrect order of loops and then show how it's easier to do multi-loop comprehensions by copy-pasting)
-          </aside>
-        </section>
-        -->
 
         <section>
           <h2>With Multiple Loops</h2>
@@ -497,8 +452,9 @@ flattened = [
           </p>
           <aside class="notes" data-markdown>
             - You can also put multiple `for` loops in a comprehension
-            - Here we're looping into a list of lists, flattening it into a single list
+            - Here we're looping into a list of lists and flattening it into a single list
             - Putting multiple `for` clauses in a comprehension can get a little complicated so be careful about using this
+            - If you are going to do this, definitely make sure you break up your comprehension over multiple lines
           </aside>
         </section>
 
@@ -524,10 +480,9 @@ squared_odds = {
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Comprehensions aren't just limited to lists
-            - You can make `set` comprehensions as well
+            - Comprehensions aren't just limited to lists... there are also set comprehensions
             - Just as a list comprehension builds up a new list, a set comprehension builds up a new set
-            - Set comprehensions are functionally equivalent to adding items to a set in a loop
+            - Set comprehensions are functionally equivalent to adding items to a set over and over in a loop (just as list comprehensions are functionally equivalent to appending items to a list over and over)
           </aside>
         </section>
 
@@ -551,7 +506,8 @@ letter_positions = {
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - You can also make dictionary comprehensions
+            - So there's set comprehensions... there's also dictionary comprehensions
+            - List comprehensions make lists, set comprehensions make sets, and dictionary comprehensions make dictionaries
             - Just as sets and dictionaries have a similar syntax, dictionary comprehensions and set comprehensions have a similar syntax
             - Dictionary comprehensions use curly braces the same way that set comprehensions do
             - But unlike set comprehensions they need a colon in-between key-value pairs to build up the dictionary
@@ -560,12 +516,14 @@ letter_positions = {
 
       </section>
 
+      <!-- 7 minute section -->
       <section>
 
         <section>
           <h2>Examples</h2>
           <aside class="notes" data-markdown>
-            Let's take a look at some examples of list, set, and dictionary comprehensions
+            - So I've shown you the syntax of list, set, and dictionary comprehensions
+            - Let's take a look at some slightly more realistic examples of list, set, and dictionary comprehensions
           </aside>
         </section>
 
@@ -577,6 +535,7 @@ lowercased_words = [word.lower() for word in words]
           <aside class="notes" data-markdown>
             - One of the simplest uses of list comprehensions is to make a new list from an old list, while slightly modifying each element along the way
             - Here we're lowercasing all words in our `words` list to make a new `lowercased_words` list
+            - Notice there's no condition here... we're just modifying each word, we're not filtering this list at all
           </aside>
         </section>
 
@@ -590,8 +549,9 @@ flipped_dict = {
           </code></pre>
           <aside class="notes" data-markdown>
             - One use for dictionary comprehensions is to swap keys and values in a dictionary
-            - Note that if any values were the same, we'd get a collision...
-            - So you probably only want to do this with dictionaries with all unique values
+            - Dictionary keys *have* to be unique, but values don't...
+            - If any of the values in this dictionary were the same, we'd get a collision...
+            - So you should probably only do something this with when you know that the values in your dictionary are unique
           </aside>
         </section>
 
@@ -605,8 +565,9 @@ print digits  # prints [4, 3, 2, 1]
           <aside class="notes" data-markdown>
             - Here we're using a list comprehension to loop over digits in an integer
             - We convert the integer to a string, loop over the characters, and then convert each character back to an integer
-            - This algorithm is a little silly
-            - Because the negative sign would mess up this comprehension so this only works for positive integers
+            - This example might seem a little silly
+            - Mostly because a negative sign would mess up this comprehension so this only works for positive integers
+            - This is an example to show that we can loop over characters in a string
           </aside>
         </section>
 
@@ -622,9 +583,10 @@ def get_anagrams(word):
     }
           </code></pre>
           <aside class="notes" data-markdown>
-            - Here we're using `itertools.permutations` to generate all permutations of the letters in a given word
-            - Then we're looping over those letters and joining them back together into a string
-            - So at the end we end up with a set of all anagrams of a given word
+            - We're using permutations to help us find anagrams, both invalid and valid ones
+            - We're using `itertools.permutations` to generate all permutations of the letters in a given word
+            - Then we're looping over the list of letters that permutations gives us and joining them back together into a string
+            - So we'll end up with a set of all anagrams of a given word
           </aside>
         </section>
 
@@ -643,7 +605,8 @@ def find_unique_letters(text):
           <aside class="notes" data-markdown>
             - Here we're counting the number of occurrences of each character in a string
             - And then making a set of only the characters that occur exactly once
-            - So we're using `collections.Counter` on a string and then a set comprehension to get unique letters
+            - So we're using `collections.Counter` on a string and then we're using a set comprehension to get unique letters from that counter object... characters that only have a count of one
+            - So we're building up a set of all the unique characters in the given string
           </aside>
         </section>
 
@@ -663,9 +626,10 @@ def is_anagram(word1, word2):
     return sorted(word1) == sorted(word2)
           </code></pre>
           <aside class="notes" data-markdown>
-            - Here we're using a comprehension to loop through words and check whether each each word is an anagram
+            - In this example we're using a comprehension to loop through words and check whether each each word is an anagram
             - Note that we're calling a function to do this because `is_anagram` is a lot more descriptive than a comparison of the sorted letters in two words
-            - So using a list comprehension to filter down our `words` list to a new list of only words that are anagrams of our `target_word`
+            - So we're using a list comprehension to filter down our `words` list to a new list of only words that are anagrams of our `target_word`
+            - So we're not changing our words at all, just filtering them down to only anagrams
           </aside>
         </section>
 
@@ -691,12 +655,16 @@ negative_matrix = [
 ]
           </code></pre>
           <aside class="notes" data-markdown>
-            - Here we have a `for` loop with a `for` loop inside it
+            - This here isn't a comprehension yet
+            - This is a `for` loop with a `for` loop inside it
             - We're building up a list of lists
-            - We can copy-paste that inner `for` loop into a comprehension to make things a little simpler
-            - We could then copy paste the outer `for` loop into another comprehension
-            - Here we have list comprehension inside of a list comprehension
+            - That empty `new_row` list and that `new_row.append`... that looks like something we can copy-paste into a comprehension
+            - **🖱** So we can copy-paste that inner `for` loop into a comprehension to make things a little simpler
+            - Now notice that we have something that also looks like it could be copy-pasted into a comprehension: we have an empty `negative_matrix` list and an `append` in our `for` loop
+            - So now we could copy paste the *outer* `for` loop into another comprehension
+            - Here we have a list comprehension inside a list comprehension
             - Please only do this sparingly... comprehensions inside of comprehensions don't always improve readability
+            - Be cautious when making comprehensions into comprehensions, but know that you can
           </aside>
         </section>
 
@@ -723,9 +691,12 @@ def reincarnated(dead_cells, living_cells):
           </code></pre>
           <aside class="notes" data-markdown>
             - Here we're using comprehensions to build up sets of neighbors for Conway's game of life
+            - If you haven't heard of Conway's game of life, you can look it up afterwards
             - We're filtering all living cells based on the number of living neighbors they currently have
             - We're also filtering all dead cells based on the number of living neighbors they currently have
             - This isn't the entirety of Conway's game of life, but it's a considerable portion of it
+            - This is about 25% of my solution for Conway's game of life... I also used generator expressions and set comprehensions for the other portions of my solution
+            - ... So we've seen some examples of how to use list, set, and dictionary comprehensions.  Let's finally talk about generators...
           </aside>
         </section>
 
@@ -733,6 +704,7 @@ def reincarnated(dead_cells, living_cells):
 
         <!-- This section 5 minutes (not counting examples) -->
 
+      <!-- 10 minute section -->
       <section>
 
         <section>
@@ -744,8 +716,9 @@ def reincarnated(dead_cells, living_cells):
             - Set comprehensions make sets
             - Dictionary comprehensions make dictionaries
             - Generator comprehensions make generators
-            - Except they're not called generator comprehensions
+            - Except that they're not actually called generator comprehensions
             - They're called generator expressions
+            - Why they're called generator expressions and not generator comprehensions, I don't know... if you say either term people should know what you're talking about
           </aside>
         </section>
 
@@ -758,9 +731,11 @@ def reincarnated(dead_cells, living_cells):
           </ul>
           <aside class="notes" data-markdown>
             - You might be wondering what a generator is
-            - I'm not going to go deep into generators during this talk because I don't have time
+            - I'm not going to go too deep into what generators are during this talk because it's a complex topic and that could up an entire talk
             - There's **one thing** I want you to remember about generator expressions
             - If you're writing a list comprehension and you're going to loop over your new list exactly once, you should write a generator expression instead
+            - I'll say that again: if you're making a list comprehension and you're going to loop over your list once and only once... use a generator expression instead
+            - Alright let's look at how generator expressions work
           </aside>
         </section>
 
@@ -769,15 +744,15 @@ def reincarnated(dead_cells, living_cells):
           <p>
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
 >>> numbers = range(1_000_000)
-<span class="fragment">>>> squared_numbers = (n ** 2 for n in numbers)</span>
-<span class="fragment">>>> squared_numbers
+>>> <span class="fragment">squared_numbers = (n ** 2 for n in numbers)
+>>> </span><span class="fragment">squared_numbers
 &lt;generator object &lt;genexpr> at 0x7f129b187780></span>
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
             - If you write a list comprehension and you change the square brackets into parenthesis, you've made a generator expression instead
             - Generator expressions make generators the same way list comprehensions make lists
-            - Generators are pretty weird.  Let's take a look at how they work.
+            - Generators are pretty weird.  Let's take a look at how they behave.
           </aside>
         </section>
 
@@ -787,22 +762,23 @@ def reincarnated(dead_cells, living_cells):
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
 >>> numbers = [1, 2, 3, 4, 5]
 >>> squared_numbers = (n ** 2 for n in numbers)
-<div class="fragment error">>>> len(squared_numbers)
-TypeError: object of type 'generator' has no len()
-</div><div class="fragment error">>>> squared_numbers[0]
-TypeError: 'generator' object is not subscriptable
-</div><div class="fragment success">>>> list(squared_numbers)
-[1, 4, 9, 16, 25]
-</div><div class="fragment warning">>>> list(squared_numbers)
-[]
-</div>
+>>> <span class="fragment"><span class="error">len(squared_numbers)
+TypeError: object of type 'generator' has no len()</span>
+>>> </span><span class="fragment"><span class="error">squared_numbers[0]
+TypeError: 'generator' object is not subscriptable</span>
+>>> </span><span class="fragment"><span class="success">list(squared_numbers)
+[1, 4, 9, 16, 25]</span>
+>>> </span><span class="fragment"><span class="warning">list(squared_numbers)
+[]</span>
+</span>
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
             - Generators don't know how many elements are inside them, so they have no length
             - You can't index generators like you can with lists or tuples
-            - The only thing you can do with generators is loop over
+            - The only thing you can do with generators is loop over them
             - And if we loop over generator a second time, we'll get nothing back
+            - Generators are a little weird
           </aside>
         </section>
 
@@ -832,8 +808,8 @@ TypeError: 'generator' object is not subscriptable
             - No work will be done until we start looping over this generator object
             - Generators compute items as they go
             - So at this point only the first three items have been computed
-            - Generators can be looped over, just like lists
-            - But they're lazy: they only compute values immediately before providing them
+            - Generators can be looped over, *just* like lists
+            - But they are **lazy**: they only compute values immediately before providing them
           </aside>
         </section>
 
@@ -853,10 +829,12 @@ TypeError: 'generator' object is not subscriptable
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
+            - Generators are lazy and they're also one-time use only
             - The only thing you can do with generators is loop over them
             - But only once.  The second time you loop a generator, it's empty.
             - Generators are one-time use only
             - Once you've looped over a generator, it's exhausted
+            - So generators are lazy and they're single-use
           </aside>
         </section>
 
@@ -877,15 +855,16 @@ TypeError: 'generator' object is not subscriptable
             - Don't even make a variable to store them... just loop
             - The sooner you loop over a generator, the less likely it is that you might accidentally loop over it twice
             - This is such a common thing to do, that Python allows you to remove redundant parenthesis around generators
-            - This is probably the most common way to use a generator
+            - This is probably the most common way to use generators in Python
             - Create it and loop over it right away
+            - So you're probably still a little fuzzy on generators at this point, but hopefully you understand that you should create them and then loop over them immediately...
           </aside>
         </section>
 
         <section>
           <h2>Generator Examples</h2>
           <aside class="notes" data-markdown>
-            - Let's take a look at a couple examples of when you might use a generator expression
+            - Now let's take a look at a couple examples of when you might use a generator expression in your code
           </aside>
         </section>
 
@@ -916,10 +895,11 @@ def translate(sentence):
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Here we're looping over a list of words, transforming them, adding them to a list, and joining them back together with spaces
+            - Here we're looping over a list of words, transforming them, adding them to a new list, and joining them back together with spaces
             - We could use a list comprehension for this
-            - but the `join` method on strings accepts an iterable
+            - but the `join` method on strings accepts any iterable
             - So you can also use join on a generator
+            - So here we've moved our list comprehension into the `join` call and removed those brackets to make a generator expression
           </aside>
         </section>
 
@@ -945,6 +925,9 @@ sum_of_squares = sum(n**2 for n in numbers)
             - Here we're looping over numbers and summing up their squares
             - If we wanted to use Python's built-in `sum` function we could refactor this code to use a list
             - This would allow us to copy-paste our way into a list comprehension or a generator expression
+            - So we've moved from using += to building up a new list (which seems a little silly) just to use that `sum` function
+            - But we can move from this to copy-pasting our way into a generator expression
+            - And we end up with this more descriptive code: sum up the squares of each number
           </aside>
         </section>
 
@@ -975,11 +958,12 @@ def is_prime(candidate):
           </p>
           <aside class="notes" data-markdown>
             - Here we're looping over all numbers below a given candidate number and checking whether it has any factors
-            - If the number is divisible by any number below it, we immediately return `False`. Otherwise we return `True`
+            - If the number is divisible by any number below it, we immediately return `False`. Otherwise we return `True` because we didn't find any factors so know it must be prime
             - If we wanted to use Python's built-in `any` function we could refactor this code to use a list of `True` and `False` values
             - So here we're using `not any` to make sure this number has no divisors
-            - This would allow us to copy-paste our way into a generator expression sent directly into `any`
-            - The `any` function will return immediately when it hits a `False` condition... just like our `for` loop did before
+            - The built-in `any` function in Python returns `True` as soon as it finds a truthy item as it loops... and if everything is `False`, it will `False`
+            - This strange `divisibility` list will allow us to copy-paste our way into a generator expression sent directly into `any`
+            - That `any` function now will return immediately when it hits a `False` condition... just like our `for` loop did before
           </aside>
         </section>
 
@@ -1009,17 +993,18 @@ def is_prime(candidate):
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - We could use `all` to simplify this loop
+            - We're starting with the same code as before here, but we're going to try the same with with the `all` function
             - Notice here we're negating the condition as we loop... this allows us to use `all`
-            - If all of these numbers do not evenly divide our candidate number, then our candidate number is prime
+            - If all of these numbers do not evenly divide our candidate number, then our candidate number is prime.
             - Again we can copy-paste our way into a generator expression
-            - The any and all functions were specially invented to be used alongside generators
+            - If any one of these numbers returns `False`, then we know this number is not prime and `all` will immediately return `False`
+            - The any and all functions were specially invented to be used alongside generator expressions
           </aside>
         </section>
 
       </section>
 
-      <!-- This section 3 - 4 minutes (not counting examples) -->
+      <!-- 4 minute section -->
       <section>
 
         <section>
@@ -1030,6 +1015,7 @@ def is_prime(candidate):
             - And we've seen how to copy-paste your loops into comprehensions
             - But when exactly should you use comprehensions?
             - And is there ever an *inappropriate* time to use a comprehension?
+            - Is there ever a time not to use a comprehension?
           </aside>
         </section>
 
@@ -1042,8 +1028,8 @@ def is_prime(candidate):
           </ul>
           <aside class="notes" data-markdown>
             - List comprehensions are **only** useful for turning one list into another
-            - Don't use list comprehensions except for making lists
-            - Comprehensions should only be used for the specific (but common) use case of turning one list into another
+            - Do not use list comprehensions except for making lists
+            - Comprehensions should only be used for the specific (but common) use case of turning one list into another list
           </aside>
         </section>
 
@@ -1061,11 +1047,12 @@ def is_prime(candidate):
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Here we're calling `print` in a comprehension
-            - We ended up creating a list of `None` values that we really don't care about because all we care about is the side effect... the printing
+            - Here we're calling `print` function in a comprehension
+            - We ended up creating a list of `None` values while we printed things out
+            - We really don't care those `None` values... all we care about is the side effect: the printing
             - Do **not** call `print` in a comprehension
             - In fact, don't put any side effects in comprehensions, even if you *are* making a list
-            - List comprehensions should only be used for turning one list into another
+            - List comprehensions should only be used for turning one list into another: not for printing
           </aside>
         </section>
 
@@ -1090,7 +1077,9 @@ color_ratios = dict(zip(colors, ratios))
             - Here we're looping over a list of tuples and making a dictionary out of them
             - You might think this would be a good opportunity to use a dictionary comprehension
             - But this isn't the best way to turn a list of tuples into a dictionary
-            - The idiomatic way to turn a list of tuples into a dictionary is to use the `dict` construct
+            - The Pythonic way to turn a list of tuples into a dictionary is to use the `dict` construct
+            - The `dict` constructor is specially designed for exactly this task
+            - There's no reason to re-invent the wheel by doing this ourselves manually
           </aside>
         </section>
 
@@ -1111,9 +1100,9 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - In this code we're looping over lines in a file and building up a list of them all
-            - Whenever you see a comprehension that does no filtering and no modifications, this should be a red flag
+            - Whenever you see a comprehension that does no filtering and no modification at all, that should be a red flag
             - The list constructor does exactly this
-            - The `list` constructor is usually the idiomatic way to make an iterable into a list
+            - The `list` constructor is usually the Pythonic way to make an iterable into a list
             - But files also have `readlines`, which might be more Pythonic or might be less Pythonic depending on who you ask
             - Just as there are sometimes *simpler* ways to do things than a `for` loop, there are also sometimes simpler ways to do things than a comprehension
           </aside>
@@ -1121,12 +1110,13 @@ with open(filename) as my_file:
 
       </section>
 
+      <!-- 4 minute section -->
       <section>
 
         <section>
           <h2>Cheat Sheet</h2>
           <aside class="notes" data-markdown>
-            I'd like to recap what we've talked about so far and provide you with a few slides that can hopefully act as a cheat sheet of sorts... to help you figure out when, where, and how to use comprehensions and generator expressions
+            I'd like to recap of what we've talked about so far and provide you with a few slides that can hopefully act as a cheat sheet of sorts... to help you figure out when, where, and how to use comprehensions and generator expressions
           </aside>
         </section>
 
@@ -1209,6 +1199,7 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - This is a nested `for` loop that builds up a new list
+            - We're taking a list of lists and converting it to a flattened list
             - Whenever you have code in this format, you can copy-paste it into a comprehension
             - This list comprehension is equivalent to that `for` loop
           </aside>
@@ -1250,12 +1241,14 @@ some_result = some_operation(new_list)</code></pre>
           <aside class="notes" data-markdown>
             - If you're making a list and immediately looping over it, you should consider copy-pasting your way into a generator expression
             - Generator expressions look like list comprehensions but they're lazy
-            - Generators don't do any work until you start looping
+            - Generators don't do any work until you start looping over them
+            - So we're getting the benefit here of not having to create an unnecessary list just to loop over it once
           </aside>
         </section>
 
       </section>
 
+      <!-- 1 minute section -->
         <section>
           <h2>Remember</h2>
           <ul>
@@ -1290,7 +1283,9 @@ some_result = some_operation(new_list)</code></pre>
           <img src="logo.svg" class="no-style logo">
           </p>
           <aside class="notes" data-markdown>
-            Any questions?
+            Thank you.
+
+            (I'm happy to bring up a terminal and live code to answer your questions.
           </aside>
         </section>
 
