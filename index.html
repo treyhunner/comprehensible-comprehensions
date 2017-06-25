@@ -539,6 +539,7 @@ lowercased_words = [word.lower() for word in words]
           </aside>
         </section>
 
+        <!--
         <section>
           <h2>Swapping dictionary keys and values</h2>
           <pre class="python"><code data-trim>
@@ -554,7 +555,9 @@ flipped_dict = {
             - So you should probably only do something this with when you know that the values in your dictionary are unique
           </aside>
         </section>
+        -->
 
+        <!--
         <section>
           <h2>Getting individual digits of an integer</h2>
           <pre class="python"><code data-trim>
@@ -570,7 +573,9 @@ print digits  # prints [4, 3, 2, 1]
             - This is an example to show that we can loop over characters in a string
           </aside>
         </section>
+        -->
 
+        <!--
         <section>
           <h2>Turning lists of letters into strings</h2>
           <pre class="python"><code data-trim>
@@ -589,7 +594,9 @@ def get_anagrams(word):
             - So we'll end up with a set of all anagrams of a given word
           </aside>
         </section>
+        -->
 
+        <!--
         <section>
           <h2>Finding all non-repeating letters</h2>
           <pre class="python"><code data-trim>
@@ -609,6 +616,7 @@ def find_unique_letters(text):
             - So we're building up a set of all the unique characters in the given string
           </aside>
         </section>
+        -->
 
         <section>
           <h2>Filtering down a list of strings</h2>
@@ -634,7 +642,7 @@ def is_anagram(word1, word2):
         </section>
 
         <section>
-          <h2>Getting individual digits of an integer</h2>
+          <h2>Modifying a list of lists</h2>
           <pre class="python"><code data-trim>
 negative_matrix = []
 for row in matrix:
@@ -668,6 +676,7 @@ negative_matrix = [
           </aside>
         </section>
 
+        <!--
         <section>
           <h2>Conway's Game of Life</h2>
           <pre class="python"><code data-trim>
@@ -699,10 +708,9 @@ def reincarnated(dead_cells, living_cells):
             - ... So we've seen some examples of how to use list, set, and dictionary comprehensions.  Let's finally talk about generators...
           </aside>
         </section>
+        -->
 
       </section>
-
-        <!-- This section 5 minutes (not counting examples) -->
 
       <!-- 10 minute section -->
       <section>
@@ -932,42 +940,6 @@ sum_of_squares = sum(n**2 for n in numbers)
         </section>
 
         <section>
-          <h2><code>any</code></h2>
-          <p>
-          <pre class="python"><code data-trim>
-def is_prime(candidate):
-    for n in range(2, candidate):
-        if candidate % n == 0:
-            return False
-    return True
-          </code></pre>
-          <pre class="python fragment"><code data-trim>
-def is_prime(candidate):
-    divisibility = []
-    for n in range(2, candidate):
-        divisibility.append(candidate % n == 0)
-    return not any(divisibility)
-          </code></pre>
-          <pre class="python fragment"><code data-trim>
-def is_prime(candidate):
-    return not any(
-        candidate % n == 0
-        for n in range(2, candidate)
-      )
-          </code></pre>
-          </p>
-          <aside class="notes" data-markdown>
-            - Here we're looping over all numbers below a given candidate number and checking whether it has any factors
-            - If the number is divisible by any number below it, we immediately return `False`. Otherwise we return `True` because we didn't find any factors so know it must be prime
-            - If we wanted to use Python's built-in `any` function we could refactor this code to use a list of `True` and `False` values
-            - So here we're using `not any` to make sure this number has no divisors
-            - The built-in `any` function in Python returns `True` as soon as it finds a truthy item as it loops... and if everything is `False`, it will `False`
-            - This strange `divisibility` list will allow us to copy-paste our way into a generator expression sent directly into `any`
-            - That `any` function now will return immediately when it hits a `False` condition... just like our `for` loop did before
-          </aside>
-        </section>
-
-        <section>
           <h2><code>all</code></h2>
           <p>
           <pre class="python"><code data-trim data-noescape>
@@ -979,26 +951,21 @@ def is_prime(candidate):
           </code></pre>
           <pre class="python fragment"><code data-trim data-noescape>
 def is_prime(candidate):
-    non_divisibility = []
-    for n in range(2, candidate):
-        non_divisibility.append(candidate % n <span class="success">!=</span> 0)
-    return all(non_divisibility)
-          </code></pre>
-          <pre class="python fragment"><code data-trim data-noescape>
-def is_prime(candidate):
     return all(
         candidate % n <span class="success">!=</span> 0
         for n in range(2, candidate)
-      )
+    )
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - We're starting with the same code as before here, but we're going to try the same with with the `all` function
-            - Notice here we're negating the condition as we loop... this allows us to use `all`
+            - Here we're looping over all numbers below a given candidate number and checking whether it has any factors
+            - If the number is divisible by any number below it, we immediately return `False`. Otherwise we return `True` because we didn't find any factors so know it must be prime
+            - If we wanted to use Python's built-in `all` function we could refactor this code to make a generator of `True` and `False` values
+            - The built-in `all` function in Python returns `False` as soon as it finds a falsey item as it loops... and if everything is `True`, it will `True`
+            - Notice here we're negating the condition as we loop...
             - If all of these numbers do not evenly divide our candidate number, then our candidate number is prime.
-            - Again we can copy-paste our way into a generator expression
             - If any one of these numbers returns `False`, then we know this number is not prime and `all` will immediately return `False`
-            - The any and all functions were specially invented to be used alongside generator expressions
+            - The `all` function was specially invented to be used alongside generator expressions
           </aside>
         </section>
 
