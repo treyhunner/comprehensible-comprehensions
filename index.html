@@ -549,7 +549,8 @@ letter_positions = {
         <section>
           <h2>Examples</h2>
           <aside class="notes" data-markdown>
-            - So I have a few examples of using list comprehensions here that I'm going to skip over because we don't have time for them
+            - So I've shown you the syntax of list, set, and dictionary comprehensions
+            - Let's take a look at some slightly more realistic examples of list, set, and dictionary comprehensions
           </aside>
         </section>
 
@@ -785,7 +786,7 @@ TypeError: 'generator' object is not subscriptable</span>
         <section>
           <h2>Generator Examples</h2>
           <aside class="notes" data-markdown>
-            - I have a few examples of when we might use generator expressions, but I'm also going to skip over these for the sake of time.  You can take a look at them on your own later.
+            - Now let's take a look at a couple examples of when you might use a generator expression in your code
           </aside>
         </section>
 
@@ -849,36 +850,6 @@ sum_of_squares = sum(n**2 for n in numbers)
             - So we've moved from using += to building up a new list (which seems a little silly) just to use that `sum` function
             - But we can move from this to copy-pasting our way into a generator expression **(click)**
             - And we end up with this more descriptive code: sum up the squares of each number
-          </aside>
-        </section>
-
-        <section>
-          <h2><code>all</code></h2>
-          <p>
-          <pre class="python"><code data-trim data-noescape>
-def is_prime(candidate):
-    for n in range(2, candidate):
-        if candidate % n <span class="success">==</span> 0:
-            return False
-    return True
-          </code></pre>
-          <pre class="python fragment"><code data-trim data-noescape>
-def is_prime(candidate):
-    return all(
-        candidate % n <span class="success">!=</span> 0
-        for n in range(2, candidate)
-    )
-          </code></pre>
-          </p>
-          <aside class="notes" data-markdown>
-            - Here we're looping over all numbers below a given candidate number and checking whether it has any factors
-            - If the number is divisible by any number below it, we immediately return `False`. Otherwise we return `True` because we didn't find any factors so know it must be prime
-            - If we wanted to use Python's built-in `all` function we could refactor this code to make a generator of `True` and `False` values **(click)**
-            - The built-in `all` function in Python returns `False` as soon as it finds a falsey item as it loops... and if everything is `True`, it will `True`
-            - Notice here we're negating the condition as we loop...
-            - If all of these numbers do not evenly divide our candidate number, then our candidate number is prime.
-            - If any one of these numbers returns `False`, then we know this number is not prime and `all` will immediately return `False`
-            - The `all` function was specially invented to be used alongside generator expressions
           </aside>
         </section>
 
@@ -1171,8 +1142,6 @@ some_result = some_operation(new_list)</code></pre>
           </p>
           <aside class="notes" data-markdown>
             Thank you.
-
-            (I'm happy to bring up a terminal and live code to answer your questions.
           </aside>
         </section>
 
