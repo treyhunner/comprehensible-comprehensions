@@ -197,17 +197,13 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
         <section>
           <h2>Breaking it down</h2>
           <p>
-          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs">
-<span class="new-collection">squared_odds</span> = <span class="collection-type">[]</span>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[]</span>
 <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
     <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>:
-        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n ** 2</span>)
-          </code></pre>
+        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n ** 2</span>)</code></pre>
           </p>
           <p>
-          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs">
-<span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span>
-          </code></pre>
+          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
             - I've here highlighted five things in this `for` loop
@@ -516,14 +512,13 @@ letter_positions = {
 
       </section>
 
-      <!-- 7 minute section -->
+      <!-- 0 minute section -->
       <section>
 
         <section>
           <h2>Examples</h2>
           <aside class="notes" data-markdown>
-            - So I've shown you the syntax of list, set, and dictionary comprehensions
-            - Let's take a look at some slightly more realistic examples of list, set, and dictionary comprehensions
+            - So I have a few examples of using list comprehensions here that I'm going to skip over because we don't have time for them
           </aside>
         </section>
 
@@ -538,85 +533,6 @@ lowercased_words = [word.lower() for word in words]
             - Notice there's no condition here... we're just modifying each word, we're not filtering this list at all
           </aside>
         </section>
-
-        <!--
-        <section>
-          <h2>Swapping dictionary keys and values</h2>
-          <pre class="python"><code data-trim>
-flipped_dict = {
-    value: key
-    for key, value in original_dict.items()
-}
-          </code></pre>
-          <aside class="notes" data-markdown>
-            - One use for dictionary comprehensions is to swap keys and values in a dictionary
-            - Dictionary keys *have* to be unique, but values don't...
-            - If any of the values in this dictionary were the same, we'd get a collision...
-            - So you should probably only do something this with when you know that the values in your dictionary are unique
-          </aside>
-        </section>
-        -->
-
-        <!--
-        <section>
-          <h2>Getting individual digits of an integer</h2>
-          <pre class="python"><code data-trim>
-number = 4321
-digits = [int(d) for d in str(number)]
-print digits  # prints [4, 3, 2, 1]
-          </code></pre>
-          <aside class="notes" data-markdown>
-            - Here we're using a list comprehension to loop over digits in an integer
-            - We convert the integer to a string, loop over the characters, and then convert each character back to an integer
-            - This example might seem a little silly
-            - Mostly because a negative sign would mess up this comprehension so this only works for positive integers
-            - This is an example to show that we can loop over characters in a string
-          </aside>
-        </section>
-        -->
-
-        <!--
-        <section>
-          <h2>Turning lists of letters into strings</h2>
-          <pre class="python"><code data-trim>
-from itertools import permutations
-
-def get_anagrams(word):
-    return {
-        "".join(letters)
-        for letters in permutations(word.lower())
-    }
-          </code></pre>
-          <aside class="notes" data-markdown>
-            - We're using permutations to help us find anagrams, both invalid and valid ones
-            - We're using `itertools.permutations` to generate all permutations of the letters in a given word
-            - Then we're looping over the list of letters that permutations gives us and joining them back together into a string
-            - So we'll end up with a set of all anagrams of a given word
-          </aside>
-        </section>
-        -->
-
-        <!--
-        <section>
-          <h2>Finding all non-repeating letters</h2>
-          <pre class="python"><code data-trim>
-from collections import Counter
-
-def find_unique_letters(text):
-    return {
-        char
-        for char, count in Counter(text.lower()).items()
-        if count == 1
-    }
-          </code></pre>
-          <aside class="notes" data-markdown>
-            - Here we're counting the number of occurrences of each character in a string
-            - And then making a set of only the characters that occur exactly once
-            - So we're using `collections.Counter` on a string and then we're using a set comprehension to get unique letters from that counter object... characters that only have a count of one
-            - So we're building up a set of all the unique characters in the given string
-          </aside>
-        </section>
-        -->
 
         <section>
           <h2>Filtering down a list of strings</h2>
@@ -676,43 +592,9 @@ negative_matrix = [
           </aside>
         </section>
 
-        <!--
-        <section>
-          <h2>Conway's Game of Life</h2>
-          <pre class="python"><code data-trim>
-
-def still_living(living_cells):
-    """Return set of still alive cells after generation."""
-    return {
-        cell
-        for cell in living_cells
-        if 2 <= living_neighbors(cell, living_cells) <= 3
-    }
-
-
-def reincarnated(dead_cells, living_cells):
-    """Return set of reincarnated cells after generation."""
-    return {
-        cell
-        for cell in dead_cells
-        if living_neighbors(cell, living_cells) == 3
-    }
-          </code></pre>
-          <aside class="notes" data-markdown>
-            - Here we're using comprehensions to build up sets of neighbors for Conway's game of life
-            - If you haven't heard of Conway's game of life, you can look it up afterwards
-            - We're filtering all living cells based on the number of living neighbors they currently have
-            - We're also filtering all dead cells based on the number of living neighbors they currently have
-            - This isn't the entirety of Conway's game of life, but it's a considerable portion of it
-            - This is about 25% of my solution for Conway's game of life... I also used generator expressions and set comprehensions for the other portions of my solution
-            - ... So we've seen some examples of how to use list, set, and dictionary comprehensions.  Let's finally talk about generators...
-          </aside>
-        </section>
-        -->
-
       </section>
 
-      <!-- 10 minute section -->
+      <!-- 7 minute section -->
       <section>
 
         <section>
@@ -872,7 +754,7 @@ TypeError: 'generator' object is not subscriptable</span>
         <section>
           <h2>Generator Examples</h2>
           <aside class="notes" data-markdown>
-            - Now let's take a look at a couple examples of when you might use a generator expression in your code
+            - I have a few examples of when we might use generator expressions, but I'm also going to skip over these for the sake of time.  You can take a look at them on your own later.
           </aside>
         </section>
 
@@ -1123,7 +1005,7 @@ with open(filename) as my_file:
 <span class="collection-type">]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - This is a `for` loop that loops over a list of items, checks a condition, does an operation, and appends to a new list every time that condition is true
+            - This `for` loop is the same as before, except that we're checking a condition to filter our new list as we build it up
             - Whenever you have a `for` loop written in *this* format you can also copy-paste your way into a comprehension
             - That comprehension is equivalent to that `for` loop
           </aside>
