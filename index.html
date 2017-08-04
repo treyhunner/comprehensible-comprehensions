@@ -157,7 +157,7 @@ for n in numbers:
             - Variables in Python are not buckets containing objects
             - Variables are simply *references* to objects
             - This can really trip up new Python programmers
-            - So we tend to copy old lists to new lists because *mutating* lists is often a bad idea
+            - So we tend to copy old lists to new lists because *mutating* lists is often a bad idea **(click)**
             - When we modify a list, every other variable that points to that same list will seem to change as well
           </aside>
         </section>
@@ -212,7 +212,7 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
               - The looping logic is in purple
               - The condition is in bright red
               - And the item we're appending every time we loop is in blue
-            - Here are the same items highlighted in our comprehension
+            - Here are the same items highlighted in our comprehension **(click)**
             - Notice that our comprehension contains pretty much the same information as our `for` loop except that:
               - we aren't repeating the variable name
               - and we don't have to type append
@@ -247,7 +247,7 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <aside class="notes" data-markdown>
             - Here I've highlighted the same five things I was highlighting before
             - This `for` loop is generic code though... it's a blueprint
-            - As long as you can figure out a way to write your for loop in this format, you can always copy-paste your way from a `for` loop to a comprehension
+            - As long as you can figure out a way to write your for loop in this format, you can always copy-paste your way from a `for` loop to a comprehension **(click)**
             - So I've shown you how to build a list comprehension from a `for` loop... let's talk about readability
           </aside>
         </section>
@@ -298,9 +298,9 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
 <span class="collection-type">]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Comprehensions have 3 parts: the operation, the loop, and the condition
+            - Comprehensions have 3 parts: the operation, the loop, and the condition **(click)**
             - There's no reason that all of those three parts have to be written on one line of code
-            - In Python, whenever an open bracket, brace, or parenthesis, you can insert line breaks to break one line of code over multiple lines
+            - In Python, whenever an open bracket, brace, or parenthesis, you can insert line breaks to break one line of code over multiple lines **(click)**
             - Breaking comprehensions into three lines can make them much more readable
           </aside>
         </section>
@@ -583,9 +583,9 @@ negative_matrix = [
             - This is a `for` loop with a `for` loop inside it
             - We're building up a list of lists
             - That empty `new_row` list and that `new_row.append`... that looks like something we can copy-paste into a comprehension
-            - **🖱** So we can copy-paste that inner `for` loop into a comprehension to make things a little simpler
+            - **(click)** So we can copy-paste that inner `for` loop into a comprehension to make things a little simpler
             - Now notice that we have something that also looks like it could be copy-pasted into a comprehension: we have an empty `negative_matrix` list and an `append` in our `for` loop
-            - So now we could copy paste the *outer* `for` loop into another comprehension
+            - So now we could copy paste the *outer* `for` loop into another comprehension **(click)**
             - Here we have a list comprehension inside a list comprehension
             - Please only do this sparingly... comprehensions inside of comprehensions don't always improve readability
             - Be cautious when making comprehensions into comprehensions, but know that you can
@@ -606,8 +606,8 @@ negative_matrix = [
             - Set comprehensions make sets
             - Dictionary comprehensions make dictionaries
             - Generator comprehensions make generators
-            - Except that they're not actually called generator comprehensions
-            - They're called generator expressions
+            - Except that they're not actually called generator comprehensions **(click)**
+            - They're called generator expressions **(click)**
             - Why they're called generator expressions and not generator comprehensions, I don't know... if you say either term people should know what you're talking about
           </aside>
         </section>
@@ -623,7 +623,7 @@ negative_matrix = [
             - You might be wondering what a generator is
             - I'm not going to go too deep into what generators are during this talk because it's a complex topic and that could up an entire talk
             - There's **one thing** I want you to remember about generator expressions
-            - If you're writing a list comprehension and you're going to loop over your new list exactly once, you should write a generator expression instead
+            - If you're writing a list comprehension and you're going to loop over your new list exactly once, you should write a generator expression instead **(click)**
             - I'll say that again: if you're making a list comprehension and you're going to loop over your list once and only once... use a generator expression instead
             - Alright let's look at how generator expressions work
           </aside>
@@ -640,9 +640,9 @@ negative_matrix = [
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - If you write a list comprehension and you change the square brackets into parenthesis, you've made a generator expression instead
-            - Generator expressions make generators the same way list comprehensions make lists
-            - Generators are pretty weird.  Let's take a look at how they behave.
+            - If you write a list comprehension and you change the square brackets into parenthesis, you've made a generator expression instead **(click)**
+            - Generator expressions make generators the same way list comprehensions make lists **(click)**
+            - Generators are pretty weird though
           </aside>
         </section>
 
@@ -664,10 +664,10 @@ TypeError: 'generator' object is not subscriptable</span>
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Generators don't know how many elements are inside them, so they have no length
-            - You can't index generators like you can with lists or tuples
-            - The only thing you can do with generators is loop over them
-            - And if we loop over generator a second time, we'll get nothing back
+            - Generators don't know how many elements are inside them, so they have no length **(click)**
+            - You can't index generators like you can with lists or tuples **(click)**
+            - The only thing you can do with generators is loop over them **(click)**
+            - And if we loop over generator a second time, we'll get nothing back **(click)**
             - Generators are a little weird
           </aside>
         </section>
@@ -695,10 +695,10 @@ TypeError: 'generator' object is not subscriptable</span>
             - This generator is squaring all numbers from zero to one billion
             - That would take a long time and could fill up my computers memory
             - But this generator hasn't actually done any work at this point
-            - No work will be done until we start looping over this generator object
-            - Generators compute items as they go
-            - So at this point only the first three items have been computed
-            - Generators can be looped over, *just* like lists
+            - No work will be done until we start looping over this generator object **(click)**
+            - Generators compute items as they go **(click)**
+            - So at this point only the first **(click)** three items have been computed
+            - Generators can be looped over, *just* like lists **(click)**
             - But they are **lazy**: they only compute values immediately before providing them
           </aside>
         </section>
@@ -720,10 +720,10 @@ TypeError: 'generator' object is not subscriptable</span>
           </p>
           <aside class="notes" data-markdown>
             - Generators are lazy and they're also one-time use only
-            - The only thing you can do with generators is loop over them
-            - But only once.  The second time you loop a generator, it's empty.
-            - Generators are one-time use only
-            - Once you've looped over a generator, it's exhausted
+            - The only thing you can do with generators is loop over them **(click)**
+            - But only once.  The second time you loop a generator, it's empty. **(click)**
+            - Generators are one-time use only **(click)**
+            - Once you've looped over a generator, it's exhausted **(click)**
             - So generators are lazy and they're single-use
           </aside>
         </section>
@@ -742,9 +742,9 @@ TypeError: 'generator' object is not subscriptable</span>
           </p>
           <aside class="notes" data-markdown>
             - So to be on the safe side, you should loop over a generator as soon as humanly possible
-            - Don't even make a variable to store them... just loop
+            - Don't even make a variable to store them... just loop **(click)**
             - The sooner you loop over a generator, the less likely it is that you might accidentally loop over it twice
-            - This is such a common thing to do, that Python allows you to remove redundant parenthesis around generators
+            - This is such a common thing to do, that Python allows you to remove redundant parenthesis around generators **(click)**
             - This is probably the most common way to use generators in Python
             - Create it and loop over it right away
             - So you're probably still a little fuzzy on generators at this point, but hopefully you understand that you should create them and then loop over them immediately...
@@ -786,9 +786,9 @@ def translate(sentence):
           </p>
           <aside class="notes" data-markdown>
             - Here we're looping over a list of words, transforming them, adding them to a new list, and joining them back together with spaces
-            - We could use a list comprehension for this
+            - We could use a list comprehension for this **(click)**
             - but the `join` method on strings accepts any iterable
-            - So you can also use join on a generator
+            - So you can also use join on a generator **(click)**
             - So here we've moved our list comprehension into the `join` call and removed those brackets to make a generator expression
           </aside>
         </section>
@@ -813,10 +813,10 @@ sum_of_squares = sum(n**2 for n in numbers)
           </p>
           <aside class="notes" data-markdown>
             - Here we're looping over numbers and summing up their squares
-            - If we wanted to use Python's built-in `sum` function we could refactor this code to use a list
+            - If we wanted to use Python's built-in `sum` function we could refactor this code to use a list **(click)**
             - This would allow us to copy-paste our way into a list comprehension or a generator expression
             - So we've moved from using += to building up a new list (which seems a little silly) just to use that `sum` function
-            - But we can move from this to copy-pasting our way into a generator expression
+            - But we can move from this to copy-pasting our way into a generator expression **(click)**
             - And we end up with this more descriptive code: sum up the squares of each number
           </aside>
         </section>
@@ -842,7 +842,7 @@ def is_prime(candidate):
           <aside class="notes" data-markdown>
             - Here we're looping over all numbers below a given candidate number and checking whether it has any factors
             - If the number is divisible by any number below it, we immediately return `False`. Otherwise we return `True` because we didn't find any factors so know it must be prime
-            - If we wanted to use Python's built-in `all` function we could refactor this code to make a generator of `True` and `False` values
+            - If we wanted to use Python's built-in `all` function we could refactor this code to make a generator of `True` and `False` values **(click)**
             - The built-in `all` function in Python returns `False` as soon as it finds a falsey item as it loops... and if everything is `True`, it will `True`
             - Notice here we're negating the condition as we loop...
             - If all of these numbers do not evenly divide our candidate number, then our candidate number is prime.
@@ -896,7 +896,7 @@ def is_prime(candidate):
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Here we're calling `print` function in a comprehension
+            - Here we're calling the `print` function in a comprehension **(click)**
             - We ended up creating a list of `None` values while we printed things out
             - We really don't care those `None` values... all we care about is the side effect: the printing
             - Do **not** call `print` in a comprehension
@@ -924,9 +924,9 @@ color_ratios = dict(zip(colors, ratios))
           </p>
           <aside class="notes" data-markdown>
             - Here we're looping over a list of tuples and making a dictionary out of them
-            - You might think this would be a good opportunity to use a dictionary comprehension
+            - You might think this would be a good opportunity to use a dictionary comprehension **(click)**
             - But this isn't the best way to turn a list of tuples into a dictionary
-            - The Pythonic way to turn a list of tuples into a dictionary is to use the `dict` construct
+            - The Pythonic way to turn a list of tuples into a dictionary is to use the `dict` construct **(click)**
             - The `dict` constructor is specially designed for exactly this task
             - There's no reason to re-invent the wheel by doing this ourselves manually
           </aside>
@@ -949,10 +949,11 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - In this code we're looping over lines in a file and building up a list of them all
-            - Whenever you see a comprehension that does no filtering and no modification at all, that should be a red flag
+            - Whenever you see a comprehension that does no filtering and no modification at all, that should be a red flag **(click)**
             - The list constructor does exactly this
-            - The `list` constructor is usually the Pythonic way to make an iterable into a list
-            - But files also have `readlines`, which might be more Pythonic or might be less Pythonic depending on who you ask
+            - The `list` constructor is usually the Pythonic way to make an iterable into a list **(click)**
+            - You **don't** need to make a list comprehension when you're not changing anything in your iterable
+            - But files also have `readlines`, which might be more Pythonic or might be less Pythonic depending on who you ask **(click)**
             - Just as there are sometimes *simpler* ways to do things than a `for` loop, there are also sometimes simpler ways to do things than a comprehension
           </aside>
         </section>
@@ -984,7 +985,7 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - This is a `for` loop that loops over a list of items, does an operation, and appends the result to a new list
-            - Whenever you have a `for` loop written in this format you can copy-paste your way into a comprehension
+            - Whenever you have a `for` loop written in this format you can copy-paste your way into a comprehension **(click)**
             - This list comprehension is equivalent to that `for` loop
           </aside>
         </section>
@@ -1006,7 +1007,7 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - This `for` loop is the same as before, except that we're checking a condition to filter our new list as we build it up
-            - Whenever you have a `for` loop written in *this* format you can also copy-paste your way into a comprehension
+            - Whenever you have a `for` loop written in *this* format you can also copy-paste your way into a comprehension **(click)**
             - That comprehension is equivalent to that `for` loop
           </aside>
         </section>
@@ -1028,7 +1029,7 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - This is a loop that checks a condition and builds up a dictionary of key-value pairs 
-            - This loop is equivalent to this comprehension
+            - This loop is equivalent to this comprehension **(click)**
             - You can almost copy-paste your way into this... that `key: value` is a little different but it's nearly the same
           </aside>
         </section>
@@ -1049,7 +1050,7 @@ with open(filename) as my_file:
           <aside class="notes" data-markdown>
             - This is a nested `for` loop that builds up a new list
             - We're taking a list of lists and converting it to a flattened list
-            - Whenever you have code in this format, you can copy-paste it into a comprehension
+            - Whenever you have code in this format, you can copy-paste it into a comprehension **(click)**
             - This list comprehension is equivalent to that `for` loop
           </aside>
         </section>
@@ -1067,7 +1068,7 @@ with open(filename) as my_file:
           </p>
           <aside class="notes" data-markdown>
             - If you're making a new list from an old list without filtering or changing anything, you shouldn't use a list comprehension
-            - You should use the `list` constructor
+            - You should use the `list` constructor **(click)**
             - The list constructor loops over whatever we give it and builds up a new list out of it
             - It's simplistic but if the simple case is all we need, that's what we should use
           </aside>
@@ -1088,7 +1089,7 @@ some_result = some_operation(new_list)</code></pre>
 )</code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - If you're making a list and immediately looping over it, you should consider copy-pasting your way into a generator expression
+            - If you're making a list and immediately looping over it, you should consider copy-pasting your way into a generator expression **(click)**
             - Generator expressions look like list comprehensions but they're lazy
             - Generators don't do any work until you start looping over them
             - So we're getting the benefit here of not having to create an unnecessary list just to loop over it once
