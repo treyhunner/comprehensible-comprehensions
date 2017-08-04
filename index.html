@@ -61,11 +61,11 @@
           </div>
           <aside class="notes" data-markdown>
             - My name is Trey.  I help Django teams on-board new teammates and turn their front-end developers into full-stack Django developers.
-            - I also host a free live webcast every week on Python-related topics... Unfortunately I *do* usually hold them at 3am in Australia Eastern Standard Time
+            - I also host a free live webcast every week on Python-related topics... I *do* usually those at 3am in Australia Eastern Standard Time.  Sorry.
             - I'm also one of the co-organizers of my local Python meetup in San Diego
             - I've helped organize four Django Girls workshops in Southern California
             - And I'm also one of the 13 directors at the Python Software Foundation
-            - Alright that's enough about me.  Let's talk about some assumptions that I'll be making during this talk.
+            - Alright that's enough about me.  Let's talk about some **assumptions** that I'll be making during this talk.
           </aside>
         </section>
 
@@ -89,9 +89,10 @@
             <li><strong>iterable</strong>: anything you can loop over</li>
             <li><strong>list comprehension</strong>: for making a new list from an iterable</li>
             <li><strong>generator</strong>: for making a "lazy" (pause-able) iterable</li>
+            <li><strong>generator expression</strong>: used to make a generator</li>
           </ul>
           <aside class="notes" data-markdown>
-            - Let's define some of the words I'm terms to use
+            - Let's define some of the words I'm going to use
             - An **iterable** is anything you can iterate over.  So anything you can loop over with a `for` loop is an iterable.
             - Lists are iterables, dictionaries are iterables, sets are iterables, strings are iterables... lots of things in Python are iterables
             - A **list comprehension** is a special syntax for making a *new* list from any iterable
@@ -105,7 +106,7 @@
           <p><blockquote>List comprehensions are a special syntax for turning one list into another list</blockquote></p>
           <aside class="notes" data-markdown>
             - I'll be using all of those terms during this talk, but the term we're *primarily* focused on is **list comprehensions**
-            - List comprehensions **do not** solve a new problem...
+            - List comprehensions **do not** solve a new problem.
             - List comprehensions are *special-purpose* tools for solving a problem we're *already* able to solve with `for` loops: turning one list into another list or more generally... transforming an old iterable into a new iterable
           </aside>
         </section>
@@ -189,7 +190,7 @@ for n in numbers:
             - Variables are buckets in some languages but that mental model of the world breaks down quickly in Python
             - Variables are simply *references* to objects
             - This can really trip up new Python programmers
-            - So we tend to copy old lists to new lists because *mutating* lists is often a bad idea **(click)**
+            - So we tend to *copy* old lists to *new* lists because *mutating* lists is often a bad idea **(click)**
             - When we modify a list, *every* other variable that points to that *same list* will **change as well**
           </aside>
         </section>
@@ -205,7 +206,7 @@ for n in numbers:
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - So turning old lists into new lists is a very common thing to do
+            - So turning old lists into new lists is a **very common thing to do**
             - It's such a common thing to do that the Python core developers added a special syntax just for turning one list into another list
             - This special syntax is called a list comprehension
           </aside>
@@ -220,7 +221,7 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           </p>
           <aside class="notes" data-markdown>
             - This list comprehension is *equivalent* to that `for` loop we wrote before
-            - This comprehension is **very** information-dense
+            - This comprehension is **very** information-dense *(pause)*
             - We've condensed what was *four lines* of code into *one line* here
             - Let's break down our `for` loop and our comprehension to see how they compare
           </aside>
@@ -238,12 +239,12 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - I've here highlighted five things in this `for` loop
-              - The variable name for our new list is in green
-              - The square brackets that make our list are in dark red
-              - The looping logic is in purple
-              - The condition is in bright red
-              - And the item we're appending every time we loop is in blue
+            - Here I've highlighted five things in this `for` loop
+              - The **variable name** for our new list is in green
+              - The **square brackets** that make our list are in dark red
+              - The **looping logic** is in purple
+              - The **condition** is in bright red
+              - And the **item we're appending** every time we loop is in blue
             - Here are the same items highlighted in our comprehension **(click)**
             - Notice that our comprehension contains pretty much the same information as our `for` loop except that:
               - we aren't repeating the variable name
@@ -261,8 +262,7 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
             - Then we copy the thing we're appending
             - Then we copy the looping logic
             - Then we copy our condition
-            - And after that we've copy pasted our way a `for` loop to a list comprehension
-            - So we just need to copy *each* of the components from our `for` loop into a comprehension
+            - And *after that* we've **copy-pasted** our way a `for` loop to a list comprehension
             - By copy-pasting our way from a `for` loop, we can build up a comprehension up without actually typing anything new
           </aside>
         </section>
@@ -295,8 +295,8 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <h2>Readability</h2>
           <ul>
           <aside class="notes" data-markdown>
-            - The most common complaint about list comprehensions is that they're hard to read
-            - List comprehensions take perfectly readable code and make it *less* readable
+            - The most common complaint I hear about list comprehensions is that they're hard to read
+            - List comprehensions take **perfectly readable code** and make it *less* readable
             - The main reason behind this complaint is that list comprehensions tend to be **much more* **compact** than `for` loops
             - Let's talk about that...
           </aside>
@@ -317,9 +317,9 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <aside class="notes" data-markdown>
             - Comprehensions are often written *all on one line*
             - *That* is what makes comprehensions hard to read
-            - The comprehension here has less *unnecessary information* than the `for` loop, but it also has **less whitespace**
-            - That `for` loop has to have white space in it because Python forces us to indent our loops
-            - Python doesn't force us to add any spaces at all in our comprehensions... and we've **chosen** not to
+            - The comprehension here has less **unnecessary information** than the `for` loop, but it also has **less whitespace**
+            - That `for` loop has to have white space in it because Python **forces us to indent our loops**
+            - But Python doesn't force us to add any spaces at all in our comprehensions... and we've **chosen** not to
           </aside>
         </section>
 
@@ -357,7 +357,7 @@ squared_odds = [
           </p>
           <aside class="notes" data-markdown>
             - In fact, I would argue that breaking up a comprehensions over multiple lines *almost always* improves readability
-            - And because of that I would recommend that you start by writing **all** of your your comprehensions over multiple lines and that you *only* combine them into one line if it makes your code more readable
+            - And because of that I would recommend that you start by writing **all** of your your comprehensions over multiple lines and that you *only* combine them into one line if it *makes* your code **more readable**
             - Embrace whitespace
             - **Whitespace is your friend**
           </aside>
@@ -384,7 +384,7 @@ squared_odds = [
             - Note that this *multi-line* list comprehension has not saved us **any** lines of code
             - In fact, we've gone from **4 lines** of code in our `for` loop to **5 lines** of code in our list comprehension
             - List comprehensions are **not** about saving lines of code
-            - List comprehensions are about making our code more **descriptive** and more **readable**
+            - They're are about making our code more **descriptive** and more **readable**
           </aside>
         </section>
 
@@ -407,8 +407,8 @@ squared_odds = [
           </p>
           <aside class="notes" data-markdown>
             - When a reader looks at the `for` loop above it's *obvious* that we're **looping**... but it may *not immediately* be obvious *why* we're looping
-            - When a reader sees our comprehension, it should be *immediately* obvious that **we're creating one list from another list **
-            - When we use a list comprehension, we're being more specific with the intent of our code: we are **not just looping**, we're making *one list* out of *another list*
+            - When a reader sees our comprehension, it should be *immediately* obvious that **we're creating one list from another list**
+            - When we use a list comprehension, we're being more specific with the **intent of our code**: we are **not just looping**, we're making *one list* out of *another list*
           </aside>
         </section>
 
@@ -462,7 +462,7 @@ squared_odds = [
 <span class="collection-type">]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Here we're not *filtering down* our list at all, we're simply changing each item as we add it to our new list
+            - Here we're not *filtering down* our list at all, we're simply **changing** each item as we add it to our new list
             - So our `for` loop doesn't have an `if` statement and our list comprehension doesn't have a condition of any sort
             - Note that you can still *copy-paste* your way from that `for` loop to this comprehension
             - List comprehensions can be used for filtering, mapping, or both
@@ -542,10 +542,10 @@ letter_positions = {
           <aside class="notes" data-markdown>
             - So there's set comprehensions... there's also dictionary comprehensions in Python
             - List comprehensions make lists, set comprehensions make sets, and dictionary comprehensions make dictionaries
-            - Just as *sets* and *dictionaries* have a **similar syntax**, *dictionary comprehensions* and *set comprehensions* have a **similar syntax**
-            - Dictionary comprehensions use **curly braces** the same way that set comprehensions do
-            - But *unlike* set comprehensions they **need a colon** in-between key-value pairs to build up the dictionary
-            - Unlike list comprehensions, I **always** break my dictionary comprehensions over multiple lines
+            - The difference between set and dictionary comprehensions is a **colon**... they both use curly braces but only dictionaries use a colon
+            - So pretty much the same as the difference between sets and dictionaries
+            - *(pause)*
+            - Unlike list comprehensions, I **always** break my dictionary comprehensions over multiple lines... I don't like to see that colon on the same line as the `for` clause
           </aside>
         </section>
 
@@ -557,8 +557,9 @@ letter_positions = {
         <section>
           <h2>Examples</h2>
           <aside class="notes" data-markdown>
-            - So I've shown you the syntax of list, set, and dictionary comprehensions
-            - Let's take a look at some slightly more realistic examples of list, set, and dictionary comprehensions
+            - So we've seen you the syntax of list, set, and dictionary comprehensions
+            - Let's take a look at examples of these
+            - I'm going to go through these quickly, but you can review these slides on your own later
           </aside>
         </section>
 
@@ -570,7 +571,6 @@ lowercased_words = [word.lower() for word in words]
           <aside class="notes" data-markdown>
             - One of the simplest uses of list comprehensions is to make a new list from an old list, while slightly modifying each element along the way
             - Here we're lowercasing all words in our `words` list to make a new `lowercased_words` list
-            - Notice there's no condition here... we're just modifying each word, we're not filtering this list at all
           </aside>
         </section>
 
@@ -591,9 +591,8 @@ def is_anagram(word1, word2):
           </code></pre>
           <aside class="notes" data-markdown>
             - In this example we're using a comprehension to loop through words and check whether each each word is an anagram
-            - Note that we're calling a function to do this because `is_anagram` is a lot more descriptive than a comparison of the sorted letters in two words
-            - So we're using a list comprehension to filter down our `words` list to a new list of only words that are anagrams of our `target_word`
-            - So we're not changing our words at all, just filtering them down to only anagrams
+            - Note that we're calling a function to do this because `is_anagram` is a **lot more descriptive** than if we put that comparison inline
+            - So we're using a list comprehension to **filter down** our `words` list to a new list of *only* words that are anagrams of our `target_word`
           </aside>
         </section>
 
@@ -620,15 +619,15 @@ negative_matrix = [
           </code></pre>
           <aside class="notes" data-markdown>
             - This here isn't a comprehension yet
-            - This is a `for` loop with a `for` loop inside it
+            - This is a `for` loop with *another* `for` loop inside it
             - We're building up a list of lists
-            - That empty `new_row` list and that `new_row.append`... that looks like something we can copy-paste into a comprehension
-            - **(click)** So we can copy-paste that inner `for` loop into a comprehension to make things a little simpler
-            - Now notice that we have something that also looks like it could be copy-pasted into a comprehension: we have an empty `negative_matrix` list and an `append` in our `for` loop
-            - So now we could copy paste the *outer* `for` loop into another comprehension **(click)**
-            - Here we have a list comprehension inside a list comprehension
-            - Please only do this sparingly... comprehensions inside of comprehensions don't always improve readability
-            - Be cautious when making comprehensions into comprehensions, but know that you can
+            - That inner `for` loop looks like comprehension material
+            - We can take that empty `new_row` list and that `new_row.append` and **copy-paste** that into a comprehension **(click)**
+            - Now we *could* stop here... but you might also notice that we have something *new* that looks sort of like the recipe for a comprehension
+            - We could **copy-paste** that empty `negative_matrix` list and that `negative_matrix.append` into *another* comprehension **(click)**
+            - So we've ended up with a list comprehension inside a list comprehension
+            - Please *only* do this **sparingly**... comprehensions *inside* of comprehensions **do not always improve readability**
+            - But I would argue that in this case readability has actually been improved... what we ended up with is more descriptive than what we started with
           </aside>
         </section>
 
@@ -740,7 +739,7 @@ TypeError: 'generator' object is not subscriptable</span>
             - Generators compute items as they go **(click)**
             - So at this point only the first **(click)** three items have been computed
             - Generators can be looped over, *just* like lists **(click)**
-            - But they are **lazy**: they only compute values immediately before providing them
+            - But they are **lazy**: they only **compute** values *immediately* before providing them to you
           </aside>
         </section>
 
@@ -827,10 +826,10 @@ def translate(sentence):
           </p>
           <aside class="notes" data-markdown>
             - Here we're looping over a list of words, transforming them, adding them to a new list, and joining them back together with spaces
-            - We could use a list comprehension for this **(click)**
-            - but the `join` method on strings accepts any iterable
-            - So you can also use join on a generator **(click)**
-            - So here we've moved our list comprehension into the `join` call and removed those brackets to make a generator expression
+            - We could turn that loop part into list comprehension **(click)**
+            - but we could take this a step further because the `join` method on strings accepts **any iterable**
+            - So we could also use join on a **generator** **(click)**
+            - So here we've *moved* our list comprehension into the string `join` call and **removed those brackets** to make it into a *generator expression*
           </aside>
         </section>
 
@@ -854,11 +853,11 @@ sum_of_squares = sum(n**2 for n in numbers)
           </p>
           <aside class="notes" data-markdown>
             - Here we're looping over numbers and summing up their squares
-            - If we wanted to use Python's built-in `sum` function we could refactor this code to use a list **(click)**
-            - This would allow us to copy-paste our way into a list comprehension or a generator expression
-            - So we've moved from using += to building up a new list (which seems a little silly) just to use that `sum` function
-            - But we can move from this to copy-pasting our way into a generator expression **(click)**
-            - And we end up with this more descriptive code: sum up the squares of each number
+            - This is *not* comprehension material... but this would be **(click)**
+            - Building up a new list will allow us to **copy-paste** our way into a *list comprehension* or a *generator expression*
+            - So we've moved from using += to building up a new list just to use that `sum` function
+            - But we can move from this to a generator expression **(click)**
+            - I find this generator expression **more descriptive** than we started with.  This generator expression makes it clear that we're *summing up* the *square* of each number
           </aside>
         </section>
 
@@ -959,7 +958,7 @@ with open(filename) as my_file:
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - In this code we're looping over lines in a file and putting them all into a new list
+            - Here we're looping over **lines in a file** and putting them all **into a new list**
             - Whenever you see a comprehension that does **no filtering** and **no modification** at all, that should be a red flag **(click)**
             - The list constructor does **exactly this**
             - The `list` constructor is *usually* the Pythonic way to copy an iterable into a new list **(click)**
@@ -979,7 +978,8 @@ with open(filename) as my_file:
           <h2>Cheat Sheet</h2>
           <aside class="notes" data-markdown>
             - I have a little visual review here of everything we've just gone through
-            - I'm going to run through these slides quickly but you can review them later and use these slides as a cheat sheet to help you figure out when, where, and how to use comprehensions and generator expressions
+            - I hope that these slides can act as a cheat sheet to help you figure out when, where, and how to use comprehensions and generator expressions
+            - I'll run through these slides quickly but you can review them later
           </aside>
         </section>
 
