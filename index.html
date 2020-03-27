@@ -40,41 +40,27 @@
 
         <section>
           <div class="aboutme-card">
-            <a href="http://truthful.technology"><img src="truthful-technology-logo.svg" class="no-style aboutme-logos"></a>
-            <span>On-site training for Django teams</span>
+            <a href="http://pythonmorsels.com"><img src="morsels-logo.svg" class="no-style aboutme-logos" alt="Python Morsels"></a>
           </div>
           <div class="aboutme-card">
-            <a href="http://weeklypython.chat"><img src="pythonchat-logo.png" class="no-style aboutme-logos"></a>
-            <span>Weekly Python Chat live webcast host</span>
-          </div>
-          <div class="aboutme-card">
-            <a href="http://pythonsd.org"><img src="pythonsd-logo.svg" class="no-style aboutme-logos"></a>
-            <span>San Diego Python meetup co-organizer</span>
-          </div>
-          <div class="aboutme-card">
-            <a href="http://djangogirls.org/sandiego"><img src="djangogirls-logo.svg" class="no-style aboutme-logos"></a>
-            <span>Django Girls San Diego co-organizer</span>
-          </div>
-          <div class="aboutme-card">
-            <a href="https://www.python.org/psf-landing/"><img src="psf-logo.png" class="no-style"></a>
-            <span>Python Software Foundation director</span>
+            <a href="http://truthful.technology"><img src="truthful-technology-logo.svg" class="no-style aboutme-logos" alt="Truthful Technology"></a>
           </div>
           <aside class="notes" data-markdown>
-            - My name is Trey.  I help Django teams on-board new teammates and turn their front-end developers into full-stack Django developers.
-            - I also host a free live webcast every week on Python-related topics... I *do* usually those at 3am in Australia Eastern Standard Time.  Sorry.
-            - I'm also one of the co-organizers of my local Python meetup in San Diego
-            - I've helped organize four Django Girls workshops in Southern California
-            - And I'm also one of the 13 directors at the Python Software Foundation
-            - Alright that's enough about me.  Let's talk about some **assumptions** that I'll be making during this talk.
+            - My name is Trey
+            - I run a weekly Python skill-building service called Python Morsels
+            - I also do on-site trainings to help teams level-up their Python skills
+            - If you're interested in improving your Python skills, check out Python Morsels.
+            - If you'd like me to teach Python to your team, remotely at the moment, you're welcome to email me after the talk is over
+            - ...
+            - Alright... Let's talk about some **assumptions** that I'll be making during this talk.
           </aside>
         </section>
-
 
         <section>
           <h2>Assumptions</h2>
           <ul>
-            <li>You know how <code>for</code> loops work in Python</li>
-            <li>You're not already a big fan of list comprehensions and generator expressions</li>
+            <li class="fragment">You know how <code>for</code> loops work in Python</li>
+            <li class="fragment">You're not already a fan of list comprehensions</li>
           </ul>
           <aside class="notes" data-markdown>
             - During this talk, I'm assuming you *already* know how `for` loops work in Python
@@ -83,31 +69,43 @@
           </aside>
         </section>
 
+        <!--
         <section>
           <h2>Definitions</h2>
           <ul>
-            <li><strong>iterable</strong>: anything you can loop over</li>
-            <li><strong>list comprehension</strong>: for making a new list from an iterable</li>
-            <li><strong>generator</strong>: for making a "lazy" (pause-able) iterable</li>
-            <li><strong>generator expression</strong>: used to make a generator</li>
+            <li class="fragment"><strong>iterable</strong>: anything you can loop over</li>
+            <li class="fragment"><strong>list comprehension</strong>: for making a new list from an iterable</li>
+            <li class="fragment"><strong>generator</strong>: for making a "lazy" (pause-able) iterable</li>
+            <li class="fragment"><strong>generator expression</strong>: used to make a generator</li>
           </ul>
           <aside class="notes" data-markdown>
             - Let's define some of the words I'm going to use
             - An **iterable** is anything you can iterate over.  So anything you can loop over with a `for` loop is an iterable.
             - Lists are iterables, dictionaries are iterables, sets are iterables, strings are iterables... lots of things in Python are iterables
+            - That's the only term I'm assuming that you know right now.  The other three terms I'll be using are list comprehension, generator, and generator expression.
             - A **list comprehension** is a special syntax for making a *new* list from any iterable
             - A **generator** is a lazy iterable.  Generators pause and restart themselves repeatedly as you loop over them.
             - A **generator expression** is a special syntax for making a generator
           </aside>
         </section>
+        -->
 
-        <section>
+        <section data-transition="slide-in fade-out">
           <h2>What are comprehensions?</h2>
-          <p><blockquote>List comprehensions are a special syntax for turning one list into another list</blockquote></p>
+          <p style="text-align: left;">List comprehensions are a special syntax for looping over one list and building a new list from it<br><br></p>
           <aside class="notes" data-markdown>
-            - I'll be using all of those terms during this talk, but the term we're *primarily* focused on is **list comprehensions**
-            - List comprehensions **do not** solve a new problem.
-            - List comprehensions are *special-purpose* tools for solving a problem we're *already* able to solve with `for` loops: turning one list into another list or more generally... transforming an old iterable into a new iterable
+            - List comprehensions are *special-purpose* tools for solving a problem we're *already* able to solve with `for` loops: turning one list into another list or more generally...
+          </aside>
+        </section>
+
+        <section data-transition="fade-in slide-out">
+          <h2>What are comprehensions?</h2>
+          <p style="text-align: left;">List comprehensions are a special syntax for looping over any <span class="fragment bold-current">iterable</span> and building up a <span class="fragment bold-current">new list</span> from it<span class="fragment"></span><span class="fragment">, modifying and/or filtering elements along the way.</span></p>
+          <aside class="notes" data-markdown>
+            - transforming an old iterable **(click)** into a new iterable **(click)**, usually a list
+            - ... 
+            - **(click)** but the whole purpose of them is to either **(click)** modify elements as you build up the list or filter some elements out
+            - We'll take a look at examples in a moment, but first...
           </aside>
         </section>
 
@@ -117,7 +115,7 @@
       <section>
 
         <section>
-          <h2>Turning Old Lists Into New Lists</h2>
+          <h2>Looping in Python</h2>
           <ul>
           <aside class="notes" data-markdown>
             Let's talk about `for` loops
@@ -128,115 +126,184 @@
           <h2><code>for</code> loops</h2>
           <p>
           <pre class="python"><code data-trim>
-numbers = [1, 2, 3, 4, 5]
+numbers = [2, 1, 3, 4, 7, 11]
 
 # Print out square of odd numbers
 for n in numbers:
     if n % 2 == 1:
-        print(n ** 2)
+        print(n**2)
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
             - Python's `for` allows us to loop over any iterable and do things with each item as we loop
-            - We can put `if` statements, `print` functions, or pretty much any other code inside our `for` loops
+            - We can put `if` statements, `print` calls, or pretty much any other code inside a `for` loop
           </aside>
         </section>
 
         <section>
           <h2>Turning lists into lists</h2>
           <p>
-          <pre class="python"><code data-trim>
-numbers = [1, 2, 3, 4, 5]
+          <pre class="python fragment"><code data-trim data-noescape>
+<span class="fragment bold-current">numbers = [2, 1, 3, 4, 7, 11]</span>
 
 # Populate new list with square of odd numbers
-squared_odds = []
+<span class="fragment bold-current">squared_odds = []</span><span class="fragment"></span>
 for n in numbers:
     if n % 2 == 1:
-        squared_odds.append(n ** 2)
+        squared_odds.append(n**2)
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - This `for` loop makes a new list 
-            - Making one list from another list is a *really* common thing to do in Python, even more common than many other programming languages
-            - Turning old lists to new lists *is* common in other languages, but it is *particularly* common in Python
+            - One really common thing to do with `for` loops is **(click)** turn *one list* into *another list*
+            - Turning old lists **(click)** to new lists **(click)** is common in other programming languages **(click)**, but it is *particularly* common in Python
             - Why is making new lists from old lists so common in *Python* in particular?
-            - I'm going to take a *little aside* here to talk about the reason we turn old lists into new lists so often in Python
+            - There's really two reasons...
+          </aside>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+          <h2>Python Encourages Making New Lists</h2>
+          <p>
+          <pre class="python fragment"><code data-trim data-noescape>
+numbers = [2, 1, 3, 4, 7, 11]
+
+<span class="fragment"># Modifying numbers list to square each number
+for i, n in enumerate(numbers):
+    if n % 2 == 1:
+        numbers[i] = n**2
+
+
+
+        </span>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - If we want to modify the list we're looping over, Python makes us go out of our to do it...
+            - If we want to change our original list to have squares in it, we need to get indexes... which Python's `for` loops don't have
+            - Which means we have to get those indexes ourselves **(click)** using the `enumerate` function... which is kind of awkward
+            - But this doesn't even really accomplish what we're trying to do... because we want to *remove* the even numbers as well as *squaring* the odd numbers
+            - Removing items as we loop without skipping items by accident is *really* awkward...
+          </aside>
+        </section>
+
+        <section data-transition="fade-in slide-out">
+          <h2>Python Encourages Making New Lists</h2>
+          <p>
+          <pre class="python"><code data-trim data-noescape>
+numbers = [2, 1, 3, 4, 7, 11]
+
+# Modifying numbers list to square each number
+i = 0
+while i &lt; len(numbers):
+    if numbers[i] % 2 == 1:
+        numbers[i] = numbers[i]**2
+        i += 1
+    else:
+        numbers.pop(i)
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - We'd need to resort to manually incrementing a counter and looking each item up in our list if we wanted to modify our list without making a copy of it
+            - ...
+            - So this is one *really good* reason that we make new lists out of old lists frequently: because Python encourages us to do so
+            - ... but there's another really good reason...
           </aside>
         </section>
 
         <section>
           <h2>Variables Are References</h2>
           <p>
-          <pre class="no-highlight"><code class="hljs" data-trim data-noescape>
+          <pre class="python"><code data-trim data-noescape>
 >>> old = [1, 2, 3]
->>> new = old
->>> new.pop()
->>> new
+>>> <span class="fragment">new = old
+>>> </span><span class="fragment">new.pop()
+3
+>>> </span><span class="fragment">new
 [1, 2]
-<span class="error">>>> old
+>>> </span><span class="fragment">old
 [1, 2]</span>
-
-<div class="fragment">>>> old = [1, 2, 3]
->>> new = old[:-1]
+          </code></pre>
+          <pre class="python fragment"><code data-trim data-noescape>
+>>> old = [1, 2, 3]
+>>> <span class="fragment bold-current">new = old[:-1]</span>
 >>> new
 [1, 2]
-<span class="success">>>> old
-[1, 2, 3]</span></div>
+>>> old
+[1, 2, 3]
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
-            - Assigning to a variable in Python doesn't copy anything
-            - Variables in Python are not buckets containing objects
+            - Variables in Python are *pointers*
+            - Meaning, when you assign to a variable **(click)**, Python doesn't copy anything
+            - It just points to variables to the same object
+            - So if we mutate our `new` list **(click)**, by removing the number 3 from the end **(click)**, we'll also have mutate **(click)** our `old` list... because both of these variables *point* to the same exact list
+            - ...
+            - Variables in Python are *not* buckets containing objects
             - Variables are buckets in some languages but that mental model of the world breaks down quickly in Python
-            - Variables are simply *references* to objects
-            - This can really trip up new Python programmers
-            - So we tend to *copy* old lists to *new* lists because *mutating* lists is often a bad idea **(click)**
+            - Python's variables are *references* to objects
             - When we modify a list, *every* other variable that points to that *same list* will **change as well**
+            - So instead of mutating lists we're given **(click)**, we tend to *copy* old lists to *new* lists **(click)** since *mutating* lists can be a bad idea
           </aside>
         </section>
 
+      </section>
+
+      <section>
+
         <section>
-          <h2>Turning lists into lists</h2>
-          <p>
-          <pre class="python"><code data-trim>
-squared_odds = []
-for n in numbers:
-    if n % 2 == 1:
-        squared_odds.append(n ** 2)
-          </code></pre>
-          </p>
+          <h2>Turning Old Lists Into New Lists</h2>
+          <ul>
           <aside class="notes" data-markdown>
             - So turning old lists into new lists is a **very common thing to do**
             - It's such a common thing to do that the Python core developers added a special syntax just for turning one list into another list
+          </aside>
+        </section>
+
+        <section data-transition="slide-in none-out">
+          <pre class="python fragment current-visible"><code data-trim>
+squared_odds = []
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.append(n**2)
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+squared_odds = [n**2 for n in numbers if n % 2 == 1]
+          </code></pre>
+          <aside class="notes" data-markdown>
+            - Instead of this **(click)**
+            - We can do this **(click)**
             - This special syntax is called a list comprehension
           </aside>
         </section>
 
-        <section>
-          <h2>With comprehensions</h2>
-          <p>
-          <pre class="python"><code data-trim>
-squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
+        <section data-transition="none-in slide-out">
+          <pre class="python fragment current-visible"><code data-trim>
+squared_odds = []
+for n in numbers:
+    if n % 2 == 1:
+        squared_odds.append(n**2)
           </code></pre>
-          </p>
+          <pre class="python"><code data-trim>
+squared_odds = [n**2 for n in numbers if n % 2 == 1]
+          </code></pre><span class="fragment"></span>
           <aside class="notes" data-markdown>
-            - This list comprehension is *equivalent* to that `for` loop we wrote before
-            - This comprehension is **very** information-dense *(pause)*
-            - We've condensed what was *four lines* of code into *one line* here
-            - Let's break down our `for` loop and our comprehension to see how they compare
+            - This list comprehension is *equivalent* to that `for` loop **(click)**
+            - That comprehension is **very** information-dense *(pause)*
+            - We've condensed what was *four lines* of code in the `for` loop into **(click)** *one* line of code in the comprehension
+            - Let's break down the `for` loop and the comprehension to see how they compare
           </aside>
         </section>
 
         <section>
           <h2>Breaking it down</h2>
           <p>
-          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[]</span>
-<span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
-    <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>:
-        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n ** 2</span>)</code></pre>
+          <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection fragment bold-current" data-fragment-index=2>squared_odds</span> = <span class="collection-type fragment bold-current" data-fragment-index=3>[]</span>
+<span class="for-loop fragment bold-current" data-fragment-index=4>for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
+    <span class="conditional-clause fragment bold-current" data-fragment-index=5>if <span class="condition">n % 2 == 1</span></span>:
+        <span class="new-collection fragment bold-current" data-fragment-index=2>squared_odds</span>.append(<span class="item-mutation fragment bold-current" data-fragment-index=6>n**2</span>)</code></pre>
           </p>
           <p>
-          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span></code></pre>
+          <pre class="fragment no-highlight colored-comprehension" data-fragment-index=7><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n**2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span></code></pre>
           </p>
           <aside class="notes" data-markdown>
             - Here I've highlighted five things in this `for` loop
@@ -308,10 +375,10 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <pre class="python"><code data-trim>
 for n in numbers:
     if n % 2 == 1:
-        squared_odds.append(n ** 2)
+        squared_odds.append(n**2)
           </code></pre>
           <pre class="python"><code data-trim>
-squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
+squared_odds = [n**2 for n in numbers if n % 2 == 1]
           </code></pre>
           </p>
           <aside class="notes" data-markdown>
@@ -326,9 +393,9 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
         <section data-transition="slide-in none-out">
           <h2>Breaking up the components</h2>
           <p>
-          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n ** 2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span></code></pre>
+          <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span><span class="item-mutation">n**2</span> <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type"> <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>]</span></code></pre>
           <pre class="fragment no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span>
-    <span class="item-mutation">n ** 2</span>
+    <span class="item-mutation">n**2</span>
     <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type">
     <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>
 <span class="collection-type">]</span></code></pre>
@@ -345,11 +412,11 @@ squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
           <h2>Breaking up the components</h2>
           <p>
           <pre class="python"><code data-trim>
-squared_odds = [n ** 2 for n in numbers if n % 2 == 1]
+squared_odds = [n**2 for n in numbers if n % 2 == 1]
           </code></pre>
           <pre class="python"><code data-trim>
 squared_odds = [
-    n ** 2
+    n**2
     for n in numbers
     if n % 2 == 1
 ]
@@ -370,11 +437,11 @@ squared_odds = [
 squared_odds = []
 for n in numbers:
     if n % 2 == 1:
-        squared_odds.append(n ** 2)
+        squared_odds.append(n**2)
           </code></pre>
           <pre class="python"><code data-trim>
 squared_odds = [
-    n ** 2
+    n**2
     for n in numbers
     if n % 2 == 1
 ]
@@ -395,11 +462,11 @@ squared_odds = [
 <span class="blur">squared_odds = []</span>
 for <span class="blur">n</span> in <span class="blur">squared_odds</span>:
     <span class="blur">if n % 2 == 1:
-        squared_odds.append(n ** 2)</span>
+        squared_odds.append(n**2)</span>
           </code></pre>
           <pre class="python"><code data-trim data-noescape>
 squared_odds = [
-    <span class="blur">n ** 2</span>
+    <span class="blur">n**2</span>
     for <span class="blur">n</span> in <span class="blur">numbers</span>
     <span class="blur">if n % 2 == 1</span>
 ]
@@ -432,11 +499,11 @@ squared_odds = [
           <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[]</span>
 <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
     <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>:
-        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n ** 2</span>)</code></pre>
+        <span class="new-collection">squared_odds</span>.append(<span class="item-mutation">n**2</span>)</code></pre>
           </p>
           <p>
           <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_odds</span> = <span class="collection-type">[</span>
-    <span class="item-mutation">n ** 2</span>
+    <span class="item-mutation">n**2</span>
     <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span><span class="collection-type">
     <span class="conditional-clause">if <span class="condition">n % 2 == 1</span></span>
 <span class="collection-type">]</span></code></pre>
@@ -453,11 +520,11 @@ squared_odds = [
           <p>
           <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_numbers</span> = <span class="collection-type">[]</span>
 <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>:
-    <span class="new-collection">squared_numbers</span>.append(<span class="item-mutation">n ** 2</span>)</code></pre>
+    <span class="new-collection">squared_numbers</span>.append(<span class="item-mutation">n**2</span>)</code></pre>
           </p>
           <p>
           <pre class="no-highlight colored-comprehension"><code data-noescape class="hljs"><span class="new-collection">squared_numbers</span> = <span class="collection-type">[</span>
-    <span class="item-mutation">n ** 2</span>
+    <span class="item-mutation">n**2</span>
     <span class="for-loop">for <span class="item">n</span> in <span class="old-collection">numbers</span></span>
 <span class="collection-type">]</span></code></pre>
           </p>
@@ -496,18 +563,18 @@ squared_odds = [
           <h2>Set comprehensions</h2>
           <p>
           <pre class="python"><code data-trim>
-numbers = {1, 2, 3, 4, 5}
+numbers = {2, 1, 3, 4, 7}
 
 squared_odds = set()
 for n in numbers:
     if n % 2 == 1:
-        squared_odds.add(n ** 2)
+        squared_odds.add(n**2)
           </code></pre>
           <pre class="python"><code data-trim>
-numbers = {1, 2, 3, 4, 5}
+numbers = {2, 1, 3, 4, 7}
 
 squared_odds = {
-    n ** 2
+    n**2
     for n in numbers
     if n % 2 == 1
 }
@@ -551,14 +618,78 @@ letter_positions = {
 
       </section>
 
+      <section>
+
+        <section>
+          <h2>Why not map and filter?</h2>
+          <ul>
+          <aside class="notes" data-markdown>
+            - Many other programming languages have map and filter methods on arrays
+            - We don't have this in Python, but we do have map and filter functions
+            - Let's look at how those compare to comprehensions
+          </aside>
+        </section>
+
+        <section>
+          <p>
+          <pre class="javascript fragment"><code data-trim>
+> numbers = [2, 1, 3, 4, 7, 11]
+> numbers.filter(n => n % 2 == 1).map(n => n**2)
+[ 1, 9, 49, 121 ]
+          </code></pre>
+          <pre class="ruby fragment"><code data-trim>
+>> numbers = [2, 1, 3, 4, 7, 11]
+>> numbers.select{ |n| n % 2 == 1 }.map{ |n| n**2 }
+=> [1, 9, 49, 121]
+          </code></pre>
+          <pre class="python fragment"><code data-trim data-noescape>
+>>> numbers = [2, 1, 3, 4, 7, 11]
+>>> numbers.filter(lambda n: n % 2 == 1).map(lambda n: n**2)
+<span class="fragment">Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+AttributeError: 'list' object has no attribute 'filter'</span>
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - In JavaScript **(click)** arrays have a filter method and a map method, which accomplish pretty much the same tasks that comprehensions accomplish in Python
+            - In Ruby **(click)** arrays have select and map methods, which do the same thing
+            - In Python, **(click)** this might look like this: filter and map methods on lists with lambda functions passed to them
+            - But this doesn't work **(click)**
+            - Lists don't have filter or map methods in Python
+          </aside>
+        </section>
+
+        <section>
+          <p>
+
+          <pre class="python"><code data-trim data-noescape>
+>>> numbers = [2, 1, 3, 4, 7, 11]
+>>> <span class="fragment" data-fragment-index=4>[*</span><span class="fragment" data-fragment-index=3>map(lambda n: n**2, </span><span class="fragment" data-fragment-index=2>filter(lambda n: n % 2 == 1, numbers)</span><span class="fragment" data-fragment-index=3>)</span><span class="fragment" data-fragment-index=4>]</span>
+<span class="fragment" data-fragment-index=5>[1, 9, 49, 121]</span>
+          </code></pre>
+          <pre class="python fragment"><code data-trim>
+>>> numbers = [2, 1, 3, 4, 7, 11]
+>>> [n**2 for n in numbers if n % 2 == 1]
+[1, 9, 49, 121]
+          </code></pre>
+          </p>
+          <aside class="notes" data-markdown>
+            - Instead of map and filter methods, in Python we have a top-level filter function **(click)** and a top-level map function **(click)**
+            - And we need to convert them to lists **(click)** to see results from them **(click)**
+            - Comprehensions are the cleaner alternative to this
+          </aside>
+        </section>
+
+      </section>
+
       <!-- 3 minute section -->
       <section>
 
         <section>
           <h2>Examples</h2>
           <aside class="notes" data-markdown>
-            - So we've seen you the syntax of list, set, and dictionary comprehensions
-            - Let's take a look at examples of these
+            - So we've seen the syntax of list, set, and dictionary comprehensions
+            - Let's take a look at some examples of comprehensions
             - I'm going to go through these quickly, but you can review these slides on your own later
           </aside>
         </section>
@@ -591,25 +722,25 @@ def is_anagram(word1, word2):
           </code></pre>
           <aside class="notes" data-markdown>
             - In this example we're using a comprehension to loop through words and check whether each each word is an anagram
-            - Note that we're calling a function to do this because `is_anagram` is a **lot more descriptive** than if we put that comparison inline
-            - So we're using a list comprehension to **filter down** our `words` list to a new list of *only* words that are anagrams of our `target_word`
+            - Note that we're calling a function to do this because `is_anagram` is a **lot more descriptive** than if we put that comparison inline right into the comprehension itself
+            - So we're using a list comprehension to **filter down** our `words` list to a new list of *only* words that are anagrams of the `target_word`
           </aside>
         </section>
 
         <section>
           <h2>Modifying a list of lists</h2>
-          <pre class="python"><code data-trim>
+          <pre class="python"><code data-trim data-noescape>
 negative_matrix = []
 for row in matrix:
-    new_row = []
+    <span class="fragment bold-current">new_row = []
     for n in row:
-        new_row.append(-n)
+        new_row.append(-n)</span>
     negative_matrix.append(new_row)
           </code></pre>
-          <pre class="fragment python"><code data-trim>
-negative_matrix = []
-for row in matrix:
-    negative_matrix.append([-n for n in row])
+          <pre class="fragment python"><code data-trim data-noescape>
+<span class="fragment bold-current">negative_matrix = []</span>
+<span class="fragment bold-current">for row in matrix</span>:
+    <span class="fragment bold-current">negative_matrix.append([-n for n in row])</span>
           </code></pre>
           <pre class="fragment python"><code data-trim>
 negative_matrix = [
@@ -622,12 +753,12 @@ negative_matrix = [
             - This is a `for` loop with *another* `for` loop inside it
             - We're building up a list of lists
             - That inner `for` loop looks like comprehension material
-            - We can take that empty `new_row` list and that `new_row.append` and **copy-paste** that into a comprehension **(click)**
-            - Now we *could* stop here... but you might also notice that we have something *new* that looks sort of like the recipe for a comprehension
-            - We could **copy-paste** that empty `negative_matrix` list and that `negative_matrix.append` into *another* comprehension **(click)**
-            - So we've ended up with a list comprehension inside a list comprehension
+            - We can take that empty `new_row` list and that **(click)** `new_row.append` and **copy-paste** that into a comprehension **(click)**
+            - Now we *could* stop here... but you might also notice that we have something *new* that looks sort of like the recipe for a comprehension: that
+            - We could **copy-paste** that **(click)** empty `negative_matrix` list, that **(click)** `for` loop, and that **(click)** `append` call into *another* comprehension **(click)**
+            - So we've ended up with a list comprehension *inside a* list comprehension
             - Please *only* do this **sparingly**... comprehensions *inside* of comprehensions **do not always improve readability**
-            - But I would argue that in this case readability has actually been improved... what we ended up with is more descriptive than what we started with
+            - But I would argue that in this case readability has actually been improved... what we ended up with is more descriptive than what we started with: it actually *looks like* a list-of-lists
           </aside>
         </section>
 
@@ -655,17 +786,17 @@ negative_matrix = [
         <section>
           <h2>Generator Expressions</h2>
           <ul>
-            <li>Generator expressions are to generators as list comprehensions are to lists</li>
-            <li>Generators are lazy single-use iterables</li>
+            <li class="fragment">Generators are lazy single-use iterables</li>
+            <li class="fragment">Generator expressions are to generators as list comprehensions are to lists</li>
             <li class="fragment">If you're making a list to <strong>loop over it exactly once</strong>, use a <strong>generator expression</strong> instead of a list comprehension</li>
           </ul>
           <aside class="notes" data-markdown>
             - You might be wondering what a generator is
-            - I'm not going to go too deep into *what generators are* during this talk because it's a complex topic and that could up **an entire talk** all on its own
-            - There is **one thing** I want you to remember about generator expressions
-            - If you're writing a list comprehension and you're going to loop over your new list exactly once, you should write a generator expression *instead* **(click)**
-            - I'll say that again: if you're making a list comprehension and you're going to loop over your list once and **only once**... use a generator expression instead of a list comprehension
-            - Alright... let's look at how generator expressions work
+            - I'm not going to go too deep into *what generators are* during this talk because it's a complex topic... I have done another talk on generators though and I'll link you to that as well as other resources at the end of this talk
+            - I will say that **(click)** generators are single-use lazy iterables and generator expressions are **(click)** the shorthand for making generators
+            - There is pretty much just **one thing** I want you to remember about generator expressions after this talk...
+            - If you're writing a list comprehension and you're going to loop over your new list exactly once **(click)**, you should write a generator expression of a list comprehension
+            - I'm going to say that again after I show you how generator expressions work...
           </aside>
         </section>
 
@@ -674,7 +805,7 @@ negative_matrix = [
           <p>
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
 >>> numbers = range(1_000_000)
->>> <span class="fragment">squared_numbers = (n ** 2 for n in numbers)
+>>> <span class="fragment">squared_numbers = (n**2 for n in numbers)
 >>> </span><span class="fragment">squared_numbers
 &lt;generator object &lt;genexpr> at 0x7f129b187780></span>
           </code></pre>
@@ -690,16 +821,16 @@ negative_matrix = [
           <h2>Generators are weird</h2>
           <p>
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
->>> numbers = [1, 2, 3, 4, 5]
->>> squared_numbers = (n ** 2 for n in numbers)
->>> <span class="fragment"><span class="error">len(squared_numbers)
-TypeError: object of type 'generator' has no len()</span>
->>> </span><span class="fragment"><span class="error">squared_numbers[0]
-TypeError: 'generator' object is not subscriptable</span>
->>> </span><span class="fragment"><span class="success">list(squared_numbers)
-[1, 4, 9, 16, 25]</span>
->>> </span><span class="fragment"><span class="warning">list(squared_numbers)
-[]</span>
+>>> numbers = [2, 1, 3, 4, 7]
+>>> squared_numbers = (n**2 for n in numbers)
+>>> <span class="fragment">len(squared_numbers)
+TypeError: object of type 'generator' has no len()
+>>> </span><span class="fragment">squared_numbers[0]
+TypeError: 'generator' object is not subscriptable
+>>> </span><span class="fragment">list(squared_numbers)
+[4, 1, 9, 16, 49]
+>>> </span><span class="fragment">list(squared_numbers)
+[]
 </span>
           </code></pre>
           </p>
@@ -708,7 +839,7 @@ TypeError: 'generator' object is not subscriptable</span>
             - You can't **index** generators like you can with lists or tuples **(click)**
             - The only thing you can do with generators is **loop over them** **(click)**
             - And if we loop over generator **a second time**, we'll get **nothing back** **(click)**
-            - Generators are a little weird
+            - Generators are **single-use** itreables
           </aside>
         </section>
 
@@ -718,7 +849,7 @@ TypeError: 'generator' object is not subscriptable</span>
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
 >>> from itertools import islice
 >>> numbers = range(1_000_000_000)
->>> squared_numbers = (n ** 2 for n in numbers)
+>>> squared_numbers = (n**2 for n in numbers)
 >>> <span class="fragment">next(squared_numbers)
 0
 >>> </span><span class="fragment">next(squared_numbers)
@@ -733,13 +864,13 @@ TypeError: 'generator' object is not subscriptable</span>
           </p>
           <aside class="notes" data-markdown>
             - This generator is squaring all numbers from zero to one billion
-            - That would take a long time and could fill up my computers memory
+            - This could take a really long time and it might fill up my computers memory
             - But this generator hasn't actually done any work at this point
             - No work will be done until we start looping over this generator object **(click)**
             - Generators compute items as they go **(click)**
             - So at this point only the first **(click)** three items have been computed
-            - Generators can be looped over, *just* like lists **(click)**
-            - But they are **lazy**: they only **compute** values *immediately* before providing them to you
+            - Generators are iterables, so they can be looped *just* like lists **(click)**
+            - But they're **lazy**: they only **compute** values *immediately* before giving them to you
           </aside>
         </section>
 
@@ -747,14 +878,14 @@ TypeError: 'generator' object is not subscriptable</span>
           <h2>Generators are single use iterables</h2>
           <p>
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
->>> numbers = [1, 2, 3, 4, 5]
->>> squared_numbers = (n ** 2 for n in numbers)
+>>> numbers = [2, 1, 3, 4, 7]
+>>> squared_numbers = (n**2 for n in numbers)
 <div class="fragment warning">>>> sum(squared_numbers)
-333332833333500000
+17
 </div><div class="fragment error">>>> sum(squared_numbers)
-0</div><div class="fragment">>>> cubed_numbers = (n ** 3 for n in numbers)
+0</div><div class="fragment">>>> cubed_numbers = (n**3 for n in numbers)
 <span class="warning">>>> list(cubed_numbers)
-[1, 8, 27, 64, 125]</span></div><div class="fragment error">>>> list(cubed_numbers)
+[8, 1, 27, 64, 343]</span></div><div class="fragment error">>>> list(cubed_numbers)
 []</div>
           </code></pre>
           </p>
@@ -773,9 +904,9 @@ TypeError: 'generator' object is not subscriptable</span>
           <p>
           <pre class="no-highlight "><code class="hljs" data-trim data-noescape>
 >>> numbers = range(1_000_000)
-<div class="fragment">>>> sum((n ** 2 for n in numbers))
+<div class="fragment">>>> sum((n**2 for n in numbers))
 333332833333500000
-</div><div class="fragment">>>> sum(n ** 2 for n in numbers)
+</div><div class="fragment">>>> sum(n**2 for n in numbers)
 333332833333500000
 </div>
           </code></pre>
@@ -788,6 +919,22 @@ TypeError: 'generator' object is not subscriptable</span>
             - This is probably the *most common* way to use generators in Python
             - Create it and *loop over it right away*
             - So you're probably still a little fuzzy on generators at this point, but hopefully you understand that after you create them, you should loop over them immediately...
+            - I'd like to re-emphasize that rule I said about when to use a generator expression...
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generator Expressions</h2>
+          <pre class="python"><code data-trim data-noescape>
+>>> numbers = [2, 1, 3, 4, 7]
+>>> <span class="fragment">sum_of_squares = sum([n**2 for n in numbers])
+>>> </span><span class="fragment">sum_of_squares = sum(n**2 for n in numbers)</span>
+          </code></pre>
+          <p class="fragment">If you're making a list to <strong>loop over it exactly once</strong>, use a <strong>generator expression</strong> instead of a list comprehension</p>
+          <aside class="notes" data-markdown>
+            - If you're making a list comprehension and **(click)** you're going to loop over your list once and **only once**... you should **(click)** use a generator expression instead of a list comprehension
+            - This avoids building up a whole new list just to loop over it once and then throw it away
+            - So again **(click)** if you're using a list comprehension to build a list that you're only looping over once, use a generator expression instead so you won't waste any resources building up a temporary list
           </aside>
         </section>
 
@@ -1115,44 +1262,37 @@ some_result = some_operation(new_list)</code></pre>
         <section>
           <h2>Remember</h2>
           <ul>
-            <li>Use comprehensions for <strong>turning one iterable into another</strong></li>
-            <li><strong>Copy-paste</strong> your way from a for loop to a comprehension</li>
-            <li>Use <strong>generators</strong> when you'll be <strong>looping</strong> over your new iterable <strong>only one time</strong></li>
-            <li>Break comprehensions and generator expressions over <strong>multiple lines to improve readability</strong></li>
+            <li class="fragment">Use comprehensions for <strong>turning one iterable into another</strong></li>
+            <li class="fragment"><strong>Copy-paste</strong> your way from a for loop to a comprehension</li>
+            <li class="fragment">Use <strong>generators</strong> when you'll be <strong>looping</strong> over your new iterable <strong>only one time</strong></li>
+            <li class="fragment">Break comprehensions and generator expressions over <strong>multiple lines to improve readability</strong></li>
           </ul>
           <aside class="notes" data-markdown>
             - I want you to remember
-            - That you can use list comprehensions for loop over an iterable while building up a new list from it
-            - You can use *set* and *dictionary* comprehensions for turning an old iterable into a new set or dictionary
-            - And if you have a `for` loop is written in the right format, you can **copy-paste** your way from a `for` loop to a comprehension
-            - If you ever find yourself making a new list just to loop over it once, consider using a **generator expression** instead of a *list comprehension*
-            - And also please please remember to *break* your comprehensions over **multiple lines** to improve the readability of your code
+            - That you can use list comprehensions for loop over an iterable while building up a new list from it **(click)**
+            - And you can use *set* and *dictionary* comprehensions for turning an old iterable into a new set or dictionary
+            - And if you have a `for` loop is written in the right format **(click)**, you can **copy-paste** your way from a `for` loop to a comprehension
+            - If you ever find yourself making a new list just to loop over it once **(click)**, you could consider using a **generator expression** instead of a *list comprehension*
+            - And also please remember **(click)** to *break* your comprehensions over **multiple lines** to improve the readability of your code
           </aside>
         </section>
 
         <section style="text-align: left;" data-background="#663399" data-background-transition="slide" data-transition="slide">
-          <h3>Things to look up later</h3>
-          <ul>
-            <li><a href="https://www.youtube.com/watch?v=_AEJHKGk9ns">Facts and Myths about Python names and values</a></li>
-            <li><a href="https://www.youtube.com/watch?v=u8g9scXeAcI">Looping Like a Pro in Python</a></li>
-            <li><a href="https://www.youtube.com/watch?v=JYuE8ZiDPl4">Loop better: a deeper look at iteration in Python</a></li>
-            <li><a href="http://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/">Python List Comprehensions: Explained Visually</a></li>
-          </ul>
-          <p>
-          <small><a href="http://treyhunner.com">Trey Hunner</a> / <a href="https://twitter.com/treyhunner">@treyhunner</a></small>
-          </p>
-          <p>
-          <small>
-            Python &amp; Django Trainer for hire
-            <br>
-            <a href="http://truthful.technology">http://truthful.technology</a>
-          </small>
-          </p>
-          <p>
-          <img src="logo.svg" class="no-style logo">
-          </p>
+          <h2 style="margin-top: 1.5em;">Recommended resources at</h2>
+          <h2><a href="http://trey.io/comprehensions">trey.io/comprehensions</a></h2>
+          <div style="margin-top: 2em;">
+            <p style="float: left; margin-right: 2em;">
+              <strong>Trey Hunner</strong><br>
+              <small>Python Team Trainer</small>
+            </p>
+            <p style="float: left;">
+            <a href="http://truthful.technology"><img src="logo.svg" class="no-style logo"></a>
+            <a href="http://pythonmorsels.com"><img src="python-morsels-logo.svg" class="no-style logo"></a>
+            </p>
+          </div>
           <aside class="notes" data-markdown>
-            - So the last thing I have for you is a list of semi-related talks and articles that you can loop up later
+            - The last thing I have for you is a resources page where I've compiled other talks, articles, and tutorials on comprehensions, generators, and related topics
+            - ...
             - Thank you.
           </aside>
         </section>

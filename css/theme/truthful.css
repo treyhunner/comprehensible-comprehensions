@@ -273,27 +273,28 @@ section.has-dark-background a:hover {
   border-top-color: #9C5CDC; }
 
 .reveal .logo {
-  height: 50px;
+  height: 80px;
+  margin-right: 1em;
 }
 
 .reveal .aboutme-card {
 
   display: inline-block;
-  padding: 20px;
-  width: 200px;
+  padding: 50px;
+  width: 300px;
   padding-top: 0;
 }
 
 .reveal .aboutme-card span {
   display: inline-block;
   font-size: 18px;
-  padding-top: 20px;
+  padding-top: 30px;
 }
 
 .reveal .aboutme-logos {
   margin: auto;
   display: block;
-  height: 200px;
+  height: 300px;
 }
 
 /*********************************************
@@ -320,6 +321,17 @@ section.has-dark-background a:hover {
   filter: blur(4.5px);
 }
 
+/*********************************************
+ * CUSTOM FRAGMENTS
+ *********************************************/
+.reveal .slides section .fragment.bold,
+.reveal .slides section .fragment.bold-current {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.bold.visible,
+  .reveal .slides section .fragment.bold-current.current-fragment {
+    font-weight: bold; }
+
 
 /* Comprehension highlighting */
 .new-collection {
@@ -340,6 +352,7 @@ section.has-dark-background a:hover {
 .conditional-clause {
   color: red;
 }
+/*
 pre .new-collection,
 pre .item-mutation,
 pre .item,
@@ -347,6 +360,7 @@ pre .old-collection,
 pre .condition {
   font-weight: bold;
 }
+*/
 pre .error {
   color: darkred;
 }
